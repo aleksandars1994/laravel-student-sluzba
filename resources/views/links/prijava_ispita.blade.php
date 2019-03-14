@@ -1,11 +1,11 @@
 @extends('home')
 
 @section('info')
-	<div class="col-md-8">
-            <div class="well">
-                <div class="well well-sm">Prijava ispita</div>
+	<div class="col-md-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">Prijava ispita</div>
 
-                <div class="jumbotron">
+                <div class="panel-body">
                     <table class="table">
                             <thead class="thead-dark">
                                 <tr>
