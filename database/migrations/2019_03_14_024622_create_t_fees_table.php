@@ -14,8 +14,15 @@ class CreateTFeesTable extends Migration
     public function up()
     {
         Schema::create('t_fees', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->text('school_year');
+            $table->text('study_year');
+            $table->text('status_of_registration');
+            $table->text('method_of_registration');
+            $table->text('type_of_payment');
+            $table->integer('rate');
+            $table->integer('rate_number');
+            $table->integer('amount');
+            $table->text('payment_deadline');
         });
     }
 

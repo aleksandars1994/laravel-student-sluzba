@@ -14,8 +14,17 @@ class CreateExamsTable extends Migration
     public function up()
     {
         Schema::create('exams', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->integer('code');
+            $table->primary('code');
+            $table->text('name');
+            $table->integer('n_gr');
+            $table->text('type_of_sign');
+            $table->integer('points');
+            $table->integer('grade');
+            $table->integer('espb');
+            $table->text('deadline');
+            $table->text('exam-date');
+            $table->text('signed_by');
         });
     }
 
