@@ -17,7 +17,7 @@ class CreateSubjectsTable extends Migration
             $table->integer('code');
             $table->primary('code');
             $table->text('name');
-            $table->integer('n.gr');
+            $table->integer('n_gr');
             $table->text('type_of_teaching');
             $table->integer('school_year');
             $table->text('type_of_application');
