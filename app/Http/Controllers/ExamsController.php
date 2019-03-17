@@ -38,7 +38,7 @@ class ExamsController extends Controller
         $store->points=request('Poeni');
        	$store->grade=request('Ocena');
         $store->espb=request('ESPB');
-        $store->deadline=request('Rok')
+        $store->deadline=request('Rok');
         $store->exam_date=request('Datum');
         $store->signed_by=request('Potpisao');
         $store->save();
@@ -52,13 +52,13 @@ class ExamsController extends Controller
 
     	$update=Exam::find($id);
     	$update->code=request('Sifra');
-        $update->name=request('Naziv')
+        $update->name=request('Naziv');
         $update->n_gr=request('N.GR');
         $update->type_of_sign=request('Tip prijave');
         $update->points=request('Poeni');
        	$update->grade=request('Ocena');
         $update->espb=request('ESPB');
-        $update->deadline=request('Rok')
+        $update->deadline=request('Rok');
         $update->exam_date=request('Datum');
         $update->signed_by=request('Potpisao');
         $update->save();

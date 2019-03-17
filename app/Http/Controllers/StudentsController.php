@@ -24,6 +24,7 @@ class StudentsController extends Controller
             'mesto'='required',
             'jmbg'='required',
             'email'='required',
+            'sifra_email'='required'
             'phone_num'='required',
             'mobile_num'='required',
     	]);
@@ -37,7 +38,8 @@ class StudentsController extends Controller
        	$store->date_of_birth=request('datum_rodjenja');
         $store->city=request('mesto')
         $store->pin=request('jmbg');
-        $store->email=request('email')
+        $store->email=request('email');
+        $store->password=request('sifra_email');
         $store->phone_num=request('phone_num');
         $store->mobile_num=request('mobile_num');
         $store->save();
@@ -49,14 +51,14 @@ class StudentsController extends Controller
 
         $update=Student::find($id);
         $update->student_id=request('sifra');
-        $update->name=request('ime')
+        $update->name=request('ime');
         $update->last_name=request('prezime');
         $update->parent_name=request('ime_roditelja');
         $update->gender=request('pol');
         $update->date_of_birth=request('datum_rodjenja');
-        $update->city=request('mesto')
+        $update->city=request('mesto');
         $update->pin=request('jmbg');
-        $update->email=request('email')
+        $update->email=request('email');
         $update->phone_num=request('phone_num');
         $update->mobile_num=request('mobile_num');
         $update->save();

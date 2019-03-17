@@ -52,6 +52,9 @@
                                     <td>XXXXXXXXXX</td>
                                 </tr>
                         </table>
+                        <br>
+                        <br>
+                        @yield('tool_create_student')
                 </div>
             </div>
         </div>

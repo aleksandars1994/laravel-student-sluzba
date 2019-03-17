@@ -28,7 +28,7 @@ class TFeesController extends Controller
     	 
     	$store=new TFee;
     	$store->school_year=request('skolska_godina');
-        $store->study_year=request('godina_upisa')
+        $store->study_year=request('godina_upisa');
         $store->status_of_registration=request('status_upisa');
         $store->method_of_registration=request('nacin_upisa');
         $store->type_of_payment=request('tip_uplate');
@@ -45,7 +45,7 @@ class TFeesController extends Controller
 
         $store=TFee::find($id);
     	$store->school_year=request('skolska_godina');
-        $store->study_year=request('godina_upisa')
+        $store->study_year=request('godina_upisa');
         $store->status_of_registration=request('status_upisa');
         $store->method_of_registration=request('nacin_upisa');
         $store->type_of_payment=request('tip_uplate');

@@ -23,6 +23,7 @@ class CreateStudentsTable extends Migration
             $table->text('city');
             $table->integer('pin');
             $table->text('email');
+            $table->text('password');
             $table->integer('phone_num');
             $table->integer('mobile_num');
         });

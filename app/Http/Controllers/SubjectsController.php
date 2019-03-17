@@ -27,7 +27,7 @@ class SubjectsController extends Controller
 
     	$store=new Subject;
     	$store->code=request('sifra');
-        $store->name=request('naziv')
+        $store->name=request('naziv');
         $store->type_of_teaching=request('tip_nastave');
         $store->type_of_application=request('tip_prijave');
         $store->school_year=request('skolska_godina');
@@ -47,7 +47,7 @@ class SubjectsController extends Controller
 
         $update=Subject::find($id);
     	$update->code=request('sifra');
-        $update->name=request('naziv')
+        $update->name=request('naziv');
         $update->type_of_teaching=request('tip_nastave');
         $update->type_of_application=request('tip_prijave');
         $update->school_year=request('skolska_godina');

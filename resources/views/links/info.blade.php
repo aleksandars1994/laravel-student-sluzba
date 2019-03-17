@@ -13,7 +13,7 @@
                     @endif
 
                     Trenutno nema obavestenja
-                    @yield('provera')
+                    
                 </div>
             </div>
         </div>

@@ -13,21 +13,21 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <p>!!Admin mode:ON!!</p><br>
+                    <p>!!Admin:{{Auth::user()->name}}</p><br>
                     <ul class="list-group">
-                        <li class="list-group-item"><a href="/home/obavestenja" class="stretched-link">Obavestenja</a></li>
-                        <li class="list-group-item"><a href="/home/prijava_ispita" class="stretched-link">Prijava ispita</a></li>
-                        <li class="list-group-item"><a href="/home/ispiti" class="stretched-link">Ispiti</a></li>
-                        <li class="list-group-item"><a href="/home/aktivnosti" class="stretched-link">Aktivnosti</a></li>
-                        <li class="list-group-item"><a href="/home/moji_predmeti" class="stretched-link">Moji predmeti</a></li>
-                        <li class="list-group-item"><a href="/home/biranje_predmeta" class="stretched-link">Biranje predmeta</a></li>
-                        <li class="list-group-item"><a href="/home/skolarine_i_uplata" class="stretched-link">Skolarine i uplate</a></li>
-                        <li class="list-group-item"><a href="/home/administracija" class="stretched-link">Administracija</a></li>
+                        <li class="list-group-item"><a href="/admin/postavi_obavestenje/" class="stretched-link">Postavi obavestenje</a></li>
+                        <li class="list-group-item"><a href="/admin/kreiraj_novog_studenta/" class="stretched-link">Kreiraj novog studenta</a></li>
+                        <li class="list-group-item"><a href="/admin/pretrazi_bazu_s/" class="stretched-link">Pretrazi bazu studentata</a></li>
+                        <li class="list-group-item"><a href="/admin/kreiraj_pr/" class="stretched-link">Kreiraj nov predmet</a></li>
+                        <li class="list-group-item"><a href="/admin/pregledaj_predmete/" class="stretched-link">Pregledaj spisak predmeta</a></li>
+                        <li class="list-group-item"><a href="/admin/azuriraj_aktivnosti_studenta/" class="stretched-link">Azuriraj aktivnosti studenta</a></li>
+                        <li class="list-group-item"><a href="/admin/azuriraj_skolarine/" class="stretched-link">Azuriraj Skolarine i uplate</a></li>
+                        <li class="list-group-item"><a href="/login" class="stretched-link">Kraj rada</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        @yield('info')
+        @yield('admin_info')
     </div>
 </div>
 @endsection
