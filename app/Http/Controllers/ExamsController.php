@@ -16,31 +16,27 @@ class ExamsController extends Controller
 
     public function store(Request $request){
     	$this->validate($request,[
-    		'Red.Br'='required',
-            'Sifra'='required',
-            'Naziv'='required',
-            'N.GR'='required',
-            'Tip prijave'='required',
-            'Poeni'='required',
-            'Ocena'='required',
-            'ESPB'='required',
-            'Rok'='required',
-            'Datum'='required',
-            'Potpisao'='required',
-            'Aktivnosti'='required'
+            'sif_stud'=>'required',
+            'sif_subject'=>'required',
+            'sif_activities'=>'required',
+            'poeni'='required',
+            'ocena'='required',
+            'espb'='required',
+            'rok'='required',
+            'datum'='required',
+            'potpisao'='required'
     	]);
 
     	$store=new Exam;
-    	$store->code=request('Sifra');
-        $store->name=request('Naziv')
-        $store->n_gr=request('N.GR');
-        $store->type_of_sign=request('Tip prijave');
-        $store->points=request('Poeni');
-       	$store->grade=request('Ocena');
-        $store->espb=request('ESPB');
-        $store->deadline=request('Rok');
-        $store->exam_date=request('Datum');
-        $store->signed_by=request('Potpisao');
+    	$store->code_stud=request('sif_stud');
+        $store->code_subject=request('sif_subject')
+        $store->code_act=request('sif_activities');
+        $store->points=request('poeni');
+        $store->grade=request('ocena');
+        $store->espb=request('espb');
+        $store->deadline=request('rok');
+        $store->date=request('datum');
+        $store->signed_by=request('potpisao');
         $store->save();
 
         return redirect('/home/ispiti');
@@ -51,16 +47,15 @@ class ExamsController extends Controller
     public function update($id){
 
     	$update=Exam::find($id);
-    	$update->code=request('Sifra');
-        $update->name=request('Naziv');
-        $update->n_gr=request('N.GR');
-        $update->type_of_sign=request('Tip prijave');
-        $update->points=request('Poeni');
-       	$update->grade=request('Ocena');
-        $update->espb=request('ESPB');
-        $update->deadline=request('Rok');
-        $update->exam_date=request('Datum');
-        $update->signed_by=request('Potpisao');
+    	$update->code_stud=request('sif_stud');
+        $update->code_subject=request('sif_subject')
+        $update->code_act=request('sif_activities');
+        $update->points=request('poeni');
+        $update->grade=request('ocena');
+        $update->espb=request('espb');
+        $update->deadline=request('rok');
+        $update->date=request('datum');
+        $update->signed_by=request('potpisao');
         $update->save();
 
         return redirect('/home/ispiti');

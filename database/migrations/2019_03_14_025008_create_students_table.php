@@ -14,7 +14,8 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->text('student_id');
+            $table->char('student_id');
+            $table->primary('student_id');
             $table->text('name');
             $table->text('last_name');
             $table->text('parent_name');
@@ -22,10 +23,17 @@ class CreateStudentsTable extends Migration
             $table->text('date_of_birth');
             $table->text('city');
             $table->integer('pin');
-            $table->text('email');
+            $table->string('email');
+            $table->foreign('email')->references('email')->on('users');
             $table->text('password');
             $table->integer('phone_num');
             $table->integer('mobile_num');
+            $table->integer('fees_id')->unsigned();
+            
+        });
+
+        Schema::table('students',function(Blueprint $table){
+            $table->foreign('fees_id')->references('id')->on('t_fees');
         });
     }
 
