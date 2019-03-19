@@ -12,12 +12,28 @@
                         </div>
                     @endif
 
+                    @if(count($info)>0)
+                    @foreach($info as $i)
+                        <div class="alert alert-info" role="alert">
+                            <p>{{$i->info}}</p>
+                        </div>
+                    @endforeach
+
+                    @else
+                        <div class="jubmotron">
+                            <p>Nema obavestenja</p>
+                        </div>
+                    @endif
+
+
+
                     <div class="form-group">
-                        <form method="post" action="#">
+                        <form method="post" action="/admin/sacuvajinfo">
                             <fieldset>
                                  <legend>Novo Obavestenje</legend>
+                            {{csrf_field()}}
                             <label>Poruka:</label><br>
-                            <textarea class="form-control" rows="5" id="comment" name="Poruka"/>
+                            <textarea class="form-control" rows="5" id="comment" name="Poruka">
                                 
                             </textarea>
                             <br><br>

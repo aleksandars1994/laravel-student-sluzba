@@ -11,20 +11,20 @@ class InfosController extends Controller
     	$index=new Info;
     	$index=$index::all();
 
-    	return view('links.info',compact(index));
+    	return view('links.info',compact('index'));
     }
 
     public function store(Request $request){
 
     	$this->validate($request,[
-    		'Poruka'='required',
+    		'Poruka'=>'required'
  			]);
 
-    	$store=new Info;
-    	$store->info=request('Poruka');
+    	$store = new Info;
+    	$store->info = request('Poruka');
         $store->save();
 
-        return redirect('/home/obavestenja');
+        return redirect('/admin/postavi_obavestenje/');
     }
 
     public function edit(){}

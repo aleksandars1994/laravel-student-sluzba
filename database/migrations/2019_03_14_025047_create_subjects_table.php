@@ -18,9 +18,15 @@ class CreateSubjectsTable extends Migration
             $table->text('name');
             $table->integer('n_gr');
             $table->text('type_of_teaching');
-            $table->integer('school_year');
+            $table->text('school_year');
             $table->text('type_of_application');
             $table->text('term');
+            $table->integer('test_1')->default(0);
+            $table->integer('test_2')->default(0);
+            $table->integer('test_3')->default(0);
+            $table->integer('term_paper_1')->default(0);
+            $table->integer('term_paper_2')->default(0);
+            $table->integer('exam')->dafault(0);
         });
     }
 

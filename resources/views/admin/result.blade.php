@@ -3,12 +3,12 @@
 @section('result')
 <div class="panel">
                             @if(isset($details))
-                                <p> The Search results for your query <b> {{ $query }} </b> are :</p>
+                                <p> Rezultat pretrage za vas pojam <b> {{ $query }} </b> je :</p>
                             <h2>Sample User details</h2>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Ime</th>
                                         <th>Email</th>
                                     </tr>
                                 </thead>

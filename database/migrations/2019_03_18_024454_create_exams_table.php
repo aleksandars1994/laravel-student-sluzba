@@ -15,15 +15,15 @@ class CreateExamsTable extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->increments('code');
-            $table->char('code_stud');
-            $table->integer('code_subject')->unsigned();
-            $table->integer('code_act')->unsigned();
-            $table->integer('points');
-            $table->integer('grade');
-            $table->integer('espb');//zapravo trebao bi double ali cilj je trenutno jednostavnost
-            $table->text('deadline');
-            $table->text('date');
-            $table->text('signed_by');
+            $table->char('code_stud')->nullable();
+            $table->integer('code_subject')->unsigned()->nullable();
+            $table->integer('code_act')->unsigned()->nullable();
+            $table->integer('points')->nullable();
+            $table->integer('grade')->nullable();
+            $table->integer('espb')->nullable();//zapravo trebao bi double ali cilj je trenutno jednostavnost
+            $table->text('deadline')->nullable();
+            $table->text('date')->nullable();
+            $table->text('signed_by')->nullable();
         });
 
         Schema::table('exams',function(Blueprint $table){

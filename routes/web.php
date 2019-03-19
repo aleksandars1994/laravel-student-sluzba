@@ -10,16 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Subject;
+use App\Student;
+use App\Info;
 use App\User;
 use Illuminate\Support\Facades\Input;
+
+//View::share('info', Info::all());
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home/obavestenja',function(){
-	return view('links.info');
-});
+Route::get('/home/obavestenja','InfosController@index');
+
 Route::get('/home/administracija',function(){
 	return view('links.administracija');
 });
@@ -53,18 +56,20 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 		});
 
 	//Ruta namenjene kreiranju obavestenja za studente
+
 		Route::get('/postavi_obavestenje',function(){
-	return view('admin.info');
+			return view('admin.info');
 		});
+
+		Route::post('/sacuvajinfo','InfosController@store');
 	//kraj
 
 	//Ruta namenjena za kreiranje novog studenta
 		Route::get('/kreiraj_novog_studenta',function(){
 			return view('admin.create_new_student');
 		});
-		Route::get('/kreiraj_novog_studenta/create',function(){
-			return view('tools.create_new_student');
-		});
+		Route::post('/novstudent','StudentsController@store');
+		
 	//kraj
 
 	//Ruta za azuriranje aktivnosti studenta
@@ -80,6 +85,8 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 	//
 
 	//Ruta za kreiranje novog predmeta
+		Route::post('/sacuvajpr','SubjectsController@store');
+
 		Route::get('/kreiraj_pr',function(){
 			return view('admin.create_new_subject');
 		});
@@ -101,7 +108,7 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 		Route::post('pretrazi_bazu_s/rezultat',function(){
 		   
 		    $q = Input::get ( 'q' );
-		    $user = User::where('name','LIKE','%'.$q.'%')->get();
+		    $user = Student::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('last_name','LIKE','%'.$q.'%')->get();
 		    
 		   	 if(count($user) > 0 && $q!="")
 		        return view('admin.result')->withDetails($user)->withQuery ( $q );
@@ -115,7 +122,7 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 		Route::post('pregledaj_predmete/rezultat_predmeti',function(){
 		   
 		    $q = Input::get ( 'q' );
-		    $user = User::where('name','LIKE','%'.$q.'%')->get();
+		    $user = Subject::where('name','LIKE','%'.$q.'%')->get();
 		    
 		   	 if(count($user) > 0 && $q!="")
 		        return view('admin.search_subjects_database')->withDetails($user)->withQuery ( $q );

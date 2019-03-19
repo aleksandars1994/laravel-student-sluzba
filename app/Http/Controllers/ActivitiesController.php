@@ -43,11 +43,11 @@ class ActivitiesController extends Controller
         ]);
 
         $store=new Activities;
-        $store->test_1=request('kolokvijum1');
-        $store->test_2=request('kolokvijum2')
-        $store->test_3=request('kolokvijum3');
-        $store->term_paper_1=request('seminarski1');
-        $store->term_paper_2=request('seminarski2');
+        $store->test_1=request('kolokvijum1',0);
+        $store->test_2=request('kolokvijum2',0)
+        $store->test_3=request('kolokvijum3',0);
+        $store->term_paper_1=request('seminarski1',0);
+        $store->term_paper_2=request('seminarski2',0);
         $store->save();
 
         return redirect('/home/administracija');

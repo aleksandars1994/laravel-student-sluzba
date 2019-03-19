@@ -6,9 +6,21 @@
                 <div class="panel-heading">Kreiraj novog studenta</div>
 
                 <div class="panel-body">
-                   <form method="post" action="#">
+
+
+                    @if(count($errors)>0)
+                    <ul>
+                       @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                    @endif
+
+
+                   <form method="post" autocomplete="off" action="/admin/novstudent">
                         <fieldset>
                              <legend>Novi Student</legend>
+                             {{ csrf_field() }}
                         <label>Sifra studenta</label>
                         <input type="text" name="sifra" value="{{old('sifra')}}" /><br><hr>
                         <label> Ime</label>

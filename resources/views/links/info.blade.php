@@ -12,7 +12,18 @@
                         </div>
                     @endif
 
-                    Trenutno nema obavestenja
+                     @if(count($index)>0)
+                    @foreach($index as $i)
+                        <div class="alert alert-info" role="alert">
+                            <p>{{$i->info}}</p>
+                        </div>
+                    @endforeach
+
+                    @else
+                        <div class="jubmotron">
+                            <p>Nema obavestenja!</p>
+                        </div>
+                    @endif
                     
                 </div>
             </div>

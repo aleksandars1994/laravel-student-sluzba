@@ -15,32 +15,32 @@ class SubjectsController extends Controller
     public function store(Request $request){
 
     	$this->validate($request,[
-            'sifra'='required',
-            'naziv'='required',
-            'n_gr'='required',
-            'tip_nastave'='required',
-            'skolska_godina'='required',
-            'tip_prijave'='required',
-            'semestar'='required',
+          
+            'naziv'=>'required',
+            'ngr'=>'required',
+            'tip_nastave'=>'required',
+            'skolska_godina'=>'required',
+            'tip_prijave'=>'required',
+            'semestar'=>'required',
 
     	]);
 
-    	$store=new Subject;
-    	$store->code=request('sifra');
+    	   $store=new Subject;
         $store->name=request('naziv');
         $store->type_of_teaching=request('tip_nastave');
         $store->type_of_application=request('tip_prijave');
         $store->school_year=request('skolska_godina');
+        $store->n_gr=request('ngr');
        	$store->term=request('semestar');
-       	$store->test1=request('test1');
-       	$store->test2=request('test2');
-       	$store->test3=request('test3');
+       	$store->test_1=request('test1');
+       	$store->test_2=request('test2');
+       	$store->test_3=request('test3');
        	$store->term_paper_1=request('term_paper_1');
        	$store->term_paper_2=request('term_paper_2');
        	$store->exam=request('exam');
         $store->save();
 
-        return redirect('/home/moji_predmeti');
+        return redirect('/admin/kreiraj_novog_studenta');
     }
     public function edit(){}
     public function update($id){
