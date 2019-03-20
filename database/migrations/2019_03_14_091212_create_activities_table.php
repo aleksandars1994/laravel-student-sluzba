@@ -15,12 +15,15 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('test_1');
-            $table->integer('test_2');
-            $table->integer('test_3');
-            $table->integer('term_paper_1');
-            $table->integer('term_paper_2');
+            $table->integer('test_1')->nullable();
+            $table->integer('test_2')->nullable();
+            $table->integer('test_3')->nullable();
+            $table->integer('term_paper_1')->nullable();
+            $table->integer('term_paper_2')->nullable();
             $table->timestamps();
+        });
+        Schema::table('activities',function(Blueprint $table){
+             $table->integer('exam')->nullable()->after('term_paper_2');
         });
     }
 

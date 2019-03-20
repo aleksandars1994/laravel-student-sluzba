@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 use App\Student;
 use App\Activities;
 use App\Subjects;
@@ -29,7 +30,7 @@ class StudentsController extends Controller
             'datum_rodjenja'=>'required',
             'mesto'=>'required',
             'jmbg'=>'required|max:11',
-            'email'=>'required|unique:users|email',
+            'email'=>'required|email|unique:users',
             'sifra_email'=>'required',
             'phone_num'=>'required',
             'mobile_num'=>'required',
@@ -40,7 +41,7 @@ class StudentsController extends Controller
             $UserData = new User;
             $UserData->email=request('email');
             $UserData->name=request('ime');
-            $UserData->password=request('sifra_email');
+            $UserData->password=bcrypt('sifra_email');
             $UserData->save();
 
             $store=new Student;
@@ -53,7 +54,7 @@ class StudentsController extends Controller
             $store->city=request('mesto');
             $store->pin=request('jmbg');
             $store->email=request('email');
-            $store->password=request('sifra_email');
+            $store->password=bcrypt('sifra_email');
             $store->phone_num=request('phone_num');
             $store->mobile_num=request('mobile_num');
             $store->save();
