@@ -13,6 +13,14 @@
                     </ul>
                     @endif
 
+                @if (\Session::has('success'))
+                <div class="alert alert-success">
+                    <ul>
+                        <li>{!! \Session::get('success') !!}</li>
+                    </ul>
+                </div>
+                @endif
+
                 <div class="panel-body">
                     <form method="post" action="/admin/sacuvajpr/">
                         {{csrf_field()}}

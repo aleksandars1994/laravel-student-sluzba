@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Student;
 use App\Activities;
 use App\Subjects;
@@ -13,7 +14,12 @@ use App\User;
 use App\Exam;
 
 class StudentsController extends Controller
-{
+{use RegistersUsers;
+
+
+
+    
+
     public function index(){
     	$index=new Student;
     	$index=$index::all();
@@ -31,19 +37,23 @@ class StudentsController extends Controller
             'mesto'=>'required',
             'jmbg'=>'required|max:11',
             'email'=>'required|email|unique:users',
-            'sifra_email'=>'required',
+            'sifra_email'=>'required|min:6',
             'phone_num'=>'required',
             'mobile_num'=>'required',
     	]);
 
-
-
+            $user = User::create([
+            'name' => $request['ime'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['sifra_email']),
+            ]);
+            /*
             $UserData = new User;
             $UserData->email=request('email');
             $UserData->name=request('ime');
             $UserData->password=bcrypt('sifra_email');
             $UserData->save();
-
+            */
             $store=new Student;
             $store->student_id=request('sifra');
             $store->name=request('ime');
@@ -67,7 +77,9 @@ class StudentsController extends Controller
             $exam->code_stud=request('sifra');
             $exam->save();
         
-            return redirect('/admin/kreiraj_novog_studenta/');
+            //return redirect('/admin/kreiraj_novog_studenta/');
+
+            return redirect()->back()->with('success', 'Kreiran je nov student!'); 
         
     }
 
