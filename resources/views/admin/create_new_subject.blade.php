@@ -26,6 +26,7 @@
                         {{csrf_field()}}
                         <fieldset>
                              <legend>Novi Predmet</legend>
+                           <div class="col-md-6">  
                         <label>Naziv</label>
                         <input type="text" name="naziv" value="{{old('naziv')}}"/><br><br>
                         <label>N.GR</label>
@@ -63,14 +64,25 @@
                         <label>Kolokvijum 2</label>
                         <input type="text" name="test2" value="{{old('test2')}}"/><br><br>
                         <label>Kolokvijum 3</label>
-                        <input type="text" name="test3" value=0><br><br>
-                        <label>Seminarski 1</label>
+                        <input type="text" name="test3" value=0>
+                        </div>
+                        <div class="col-md-6">
+                        <label>Seminarski 1</label><br>
                         <input type="text" name="term_paper_1" value=0><br><br>
-                        <label>Seminarski 2</label>
+                        <label>Seminarski 2</label><br>
                         <input type="text" name="term_paper_2" value=0><br><br>
-                        <label>Ispit</label>
+                        <label>Ispit</label><br>
                         <input type="text" name="exam" value=0><br><br>
-                        <hr>
+                        <label>ESPB</label><br>
+                        <input type="text" name="espb"><br><br>
+                        <label>Rok</label><br>
+                        <input type="text" name="rok"><br><br>
+                        <label>Datum polaganja</label><br>
+                        <input type="date" name="datum_polaganja"><br><br>
+                        <label>Profesor</label><br>
+                        <input type="text" name="profesor"><br><br>
+                       
+                        </div>
                         <input type="Submit" class="btn" value="Sacuvaj"/>
                         <input type="Reset" class="btn" value="Ponisti"/>
                         </fieldset>

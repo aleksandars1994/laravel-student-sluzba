@@ -13,7 +13,24 @@
                                     <th>N.GR</th>
                                 </tr>
                             </thead>
-                        </table>
+                            <tbody>
+                                 @if(count($ex)>0)
+                                @foreach($ex as $exam)
+                                <tr>
+                                        <td>
+                                            <button type="submit" class="btn btn-default">
+                                            <img src="/pics/search.png" style="width: 20px;height: 20px;"></span>
+                                            </button>
+                                        </td>
+                                        <td>{{$exam->code_subject}}</td>
+                                        <td>{{$exam->ngr}}</td>
+                                </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>        
+                              
+                          
                     </div>
                 </div>
             </div>

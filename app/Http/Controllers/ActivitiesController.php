@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Activities;
+use App\User;
+use App\Student;
+use App\Exam;
+
 
 class ActivitiesController extends Controller
 {
@@ -14,7 +19,10 @@ class ActivitiesController extends Controller
      */
     public function index()
     {
-        //
+        $em=Auth::user()->email;
+        $stud = Student::where('email',$em)->pluck('student_id');
+        $ex= Exam::where('code_stud',$stud)->get();
+        return view('links.aktivnosti',compact('ex'));
     }
 
     /**
@@ -37,17 +45,19 @@ class ActivitiesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'kolokvijum1'='required',
-            'kolokvijum2'='required',
-            'seminarski1'='required'
+            'kolokvijum1'=>'required',
+            'kolokvijum2'=>'required',
+            'seminarski1'=>'required',
+            'ispit'=>'required'
         ]);
 
         $store=new Activities;
         $store->test_1=request('kolokvijum1',0);
-        $store->test_2=request('kolokvijum2',0)
+        $store->test_2=request('kolokvijum2',0);
         $store->test_3=request('kolokvijum3',0);
         $store->term_paper_1=request('seminarski1',0);
         $store->term_paper_2=request('seminarski2',0);
+        $store->exam=request('ispit',0);
         $store->save();
 
         return redirect('/home/administracija');
@@ -86,9 +96,9 @@ class ActivitiesController extends Controller
     {
 
 
-        $update=Activities::find($id,);
+        $update=Activities::find($id);
         $update->test_1=request('kolokvijum1');
-        $update->test_2=request('kolokvijum2')
+        $update->test_2=request('kolokvijum2');
         $update->test_3=request('kolokvijum3');
         $update->term_paper_1=request('seminarski1');
         $update->term_paper_2=request('seminarski2');

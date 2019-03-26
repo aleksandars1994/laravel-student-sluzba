@@ -13,7 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <p>!!Admin:{{Auth::user()->name}}</p><br>
+                    <div class="alert alert-success" role="alert">
+                            <p>Admin mode:ON</p>
+                        </div>
                     <ul class="list-group">
                         <li class="list-group-item"><a href="/admin/postavi_obavestenje/" class="stretched-link">Postavi obavestenje</a></li>
                         <li class="list-group-item"><a href="/admin/kreiraj_novog_studenta/" class="stretched-link">Kreiraj novog studenta</a></li>

@@ -15,30 +15,38 @@ class TFeesController extends Controller
     public function store(Request $request){
 
     	$this->validate($request,[
-    		'skolska_godina'='required',
-            'godina_upisa'='required',
-            'status_upisa'='required',
-            'nacin_upisa'='required',
-            'tip_uplate'='required',
-            'rata'='required',
-            'broj_rata'='required',
-            'iznos'='required',
-            'rok_uplate'='required'
+            'student'=>'required',
+    		'sk_god'=>'required',
+            'god'=>'required',
+            'st_up'=>'required',
+            'nup'=>'required',
+            'tip'=>'required',
+            'rata'=>'required',
+            'brrata'=>'required',
+            'iznos'=>'required',
+            'rok'=>'required'
     	]);
-    	 
-    	$store=new TFee;
-    	$store->school_year=request('skolska_godina');
-        $store->study_year=request('godina_upisa');
-        $store->status_of_registration=request('status_upisa');
-        $store->method_of_registration=request('nacin_upisa');
-        $store->type_of_payment=request('tip_uplate');
-       	$store->rate=request('rata');
-       	$store->rate_number=request('broj_rata');
-       	$store->amount=request('iznos');
-       	$store->payment_deadline=request('rok_uplate');
-        $store->save();
-
-        return redirect('/home/skolarine_i_uplata');
+    	
+        $sk=request('student');
+    	$store=TFee::where('stud_id',$sk)->first();
+        if($store){
+    	    $store->school_year=request('sk_god');
+            $store->study_year=request('god');
+            $store->status_of_registration=request('st_up');
+            $store->method_of_registration=request('nup');
+            $store->type_of_payment=request('tip');
+           	$store->rate=request('rata');
+           	$store->rate_number=request('brrata');
+           	$store->amount=request('iznos');
+           	$store->payment_deadline=request('rok');
+            $store->save();
+            return redirect()->back()->with('success','Azurirana je skolarina studenta!');
+            }
+        else
+            {
+            return redirect()->back()->with('success','Student ne postoji');
+            }
+        
     }
     public function edit(){}
     public function update($id){

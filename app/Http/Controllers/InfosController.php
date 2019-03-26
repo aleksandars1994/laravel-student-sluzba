@@ -12,6 +12,7 @@ class InfosController extends Controller
     	$index=$index::all();
 
     	return view('links.info',compact('index'));
+        
     }
 
     public function store(Request $request){

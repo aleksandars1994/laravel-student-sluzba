@@ -5,6 +5,8 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Pretraga studenata</div>
                     <div class="panel-body">
+
+                        
                        <form action="rezultat" method="POST" role="search" required>
                                 {{ csrf_field() }}
                                 <div class="input-group">

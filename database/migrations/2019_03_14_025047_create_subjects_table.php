@@ -26,7 +26,11 @@ class CreateSubjectsTable extends Migration
             $table->integer('test_3')->default(0);
             $table->integer('term_paper_1')->default(0);
             $table->integer('term_paper_2')->default(0);
-            $table->integer('exam')->dafault(0);
+            $table->integer('exam')->default(0);
+            $table->integer('espb')->default(0);
+            $table->string('deadline');
+            $table->string('signed_by');
+            $table->string('date');
         });
     }
 

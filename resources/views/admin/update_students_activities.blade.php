@@ -28,10 +28,10 @@
                         <input type="text" name="sem1" value="{{old('sem1')}}"/><br><br>
 
                         <label>Seminarski 2</label>
-                        <input type="text" name="kol1" value="{{old('sem2')}}"/><br><br>
+                        <input type="text" name="sem2" value="{{old('sem2')}}"/><br><br>
 
                         <label>Ispit</label>
-                        <input type="text" name="kol1" value="{{old('kol1')}}"/><br><br>
+                        <input type="text" name="ispit" value="{{old('kol1')}}"/><br><br>
 
                         <input type="submit" value="Sacuvaj"/>
                         <input type="reset" value="Ponisti"/>

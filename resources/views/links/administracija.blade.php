@@ -9,47 +9,47 @@
                    <table class="table table-hover">
                                 <tr>
                                     <th col-sm-3>Broj</th>
-                                    <td>EP25/16</td>
+                                    <td>{{$stud->student_id}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Ime</th>
-                                    <td>Koja</td>
+                                    <td>{{$stud->name}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Prezime</th>
-                                    <td>Kebic</td>
+                                    <td>{{$stud->last_name}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Ime jednog roditelja</th>
-                                    <td>Stanoje</td>
+                                    <td>{{$stud->parent_name}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Pol</th>
-                                    <td>M</td>
+                                    <td>{{$stud->gender}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Datum rodjenja</th>
-                                    <td>03.02.1994</td>
+                                    <td>{{$stud->date_of_birth}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Mesto</th>
-                                    <td>Novi Sad</td>
+                                    <td>{{$stud->city}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>JMBG</th>
-                                    <td>30201900056</td>
+                                    <td>{{$stud->pin}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>E-mail</th>
-                                    <td>kebab@gmail.com</td>
+                                    <td>{{$stud->email}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Mobilni</th>
-                                    <td>0611409234</td>
+                                    <td>{{$stud->mobile_num}}</td>
                                 </tr>
                                 <tr>
                                     <th col-sm-3>Telefon</th>
-                                    <td>XXXXXXXXXX</td>
+                                    <td>{{$stud->phone_num}}</td>
                                 </tr>
                         </table>
                         <br>

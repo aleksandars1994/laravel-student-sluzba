@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use App\Student;
 use App\Activities;
 use App\Subjects;
@@ -21,9 +22,12 @@ class StudentsController extends Controller
     
 
     public function index(){
-    	$index=new Student;
-    	$index=$index::all();
-    	return view('links.administracija',compact('index'));
+
+    	$em=Auth::user()->email;
+        $stud =Student::where('email',$em)->get()->first();
+       // $stud=dd($stud);
+        
+    	return view('links.administracija',compact('stud'));
     }
     public function store(Request $request){
 
@@ -72,10 +76,6 @@ class StudentsController extends Controller
             $fees=new TFee;
             $fees->stud_id=request('sifra');
             $fees->save();
-
-            $exam=new Exam;
-            $exam->code_stud=request('sifra');
-            $exam->save();
         
             //return redirect('/admin/kreiraj_novog_studenta/');
 
@@ -83,7 +83,18 @@ class StudentsController extends Controller
         
     }
 
-    public function edit(){}
+    public function SearchStudent(){
+
+        $q = Input::get ( 'q' );
+            $user = Student::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('last_name','LIKE','%'.$q.'%')->get();
+            
+             if(count($user) > 0 && $q!="")
+                return view('admin.result')->withDetails($user)->withQuery ( $q );
+            else
+             return view ('admin.result');
+    }
+
+
     public function update($id){
 
         $update=Student::find($id);
@@ -102,6 +113,7 @@ class StudentsController extends Controller
 
         return redirect('/admin/kreiraj_novog_studenta');
     }
+
     public function remove($id){
 
     	$delete=Student::find($id)->delete();

@@ -10,34 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Subject;
-use App\Student;
-use App\Info;
-use App\User;
-use Illuminate\Support\Facades\Input;
 
-//View::share('info', Info::all());
+Route::group(['middleware' => 'web'], function () {
 
 Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/home/obavestenja','InfosController@index');
 
-Route::get('/home/administracija',function(){
-	return view('links.administracija');
-});
-Route::get('/home/aktivnosti',function(){
-	return view('links.aktivnosti');
-});
-Route::get('/home/biranje_predmeta',function(){
-	return view('links.biranje_p');
-});
+Route::get('/home/administracija','StudentsController@index');
+
+Route::get('/home/aktivnosti','ActivitiesController@index');
+
+Route::get('/home/biranje_predmeta','SubjectsController@indexCheck');
+
+Route::get('prijavi/{id}','ExamsController@SubmitSubject');
+
 Route::get('/home/ispiti',function(){
 	return view('links.ispiti');
 });
-Route::get('/home/moji_predmeti',function(){
-	return view('links.moji_predmeti');
-});
+Route::get('/home/moji_predmeti','SubjectsController@indexPreview');
+
 Route::get('/home/prijava_ispita',function(){
 	return view('links.prijava_ispita');
 });
@@ -102,33 +95,17 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 		Route::get('/azuriraj_skolarine',function(){
 			return view('admin.update_tfees');
 		});
+
+		Route::post('/update_tfees','TFeesController@store');
 	//kraj
 
 	//Pretraga studenta
-		Route::post('pretrazi_bazu_s/rezultat',function(){
-		   
-		    $q = Input::get ( 'q' );
-		    $user = Student::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('last_name','LIKE','%'.$q.'%')->get();
-		    
-		   	 if(count($user) > 0 && $q!="")
-		        return view('admin.result')->withDetails($user)->withQuery ( $q );
-		    else
-		     return view ('admin.result')->withMessage('Nema rezultata');
-		    
-		});
+		Route::post('pretrazi_bazu_s/rezultat','StudentsController@SearchStudent');
 	//kraj
 
 	//Pretraga studenta
-		Route::post('pregledaj_predmete/rezultat_predmeti',function(){
-		   
-		    $q = Input::get ( 'q' );
-		    $user = Subject::where('name','LIKE','%'.$q.'%')->get();
-		    
-		   	 if(count($user) > 0 && $q!="")
-		        return view('admin.search_subjects_database')->withDetails($user)->withQuery ( $q );
-		    else
-		     return view ('admin.search_subjects_database')->withMessage('Nema rezultata');
-		    
-		});
+		Route::post('pregledaj_predmete/rezultat_predmeti','SubjectsController@SearchSubject');
 	//kraj
+});
+
 });
