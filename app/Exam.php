@@ -4,18 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Exam extends Model
 {
     public $timestamps = false;
 
     public function activities()
     {
-        return $this->hasMany('App\Activities');
+        return $this->belongsTo('App\Activities','code_act');
     }
 
     public function subject()
     {
-        return $this->hasMany('App\Subject');
+        return $this->belongsTo('App\Subject','code_subject');
     }
 
     public function student()

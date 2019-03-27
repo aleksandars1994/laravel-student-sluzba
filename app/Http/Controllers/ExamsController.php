@@ -12,10 +12,20 @@ use App\Subject;
 class ExamsController extends Controller
 {
     public function index(){
-    	$index=new Exam;
-    	$index=$index::all();
+    	
+        $em = Auth::user()->email;
+        $stud = Student::where('email',$em)->value('student_id');
+        $exam = Exam::where('code_stud',$stud)->where('start','!=','1')->pluck('code_subject');
+        $details=Subject::whereIn('id',$exam)->get();
 
-    	return view('links.ispiti',compact(index));
+    	return view('links.prijava_ispita',compact('details'));
+    }
+
+    public function startExam($id){
+
+        $sign=Exam::where('code_subject',$id)->update(['start' => 1]);
+
+        return redirect()->back()->with('success','Prijavili ste predmet');
     }
 
     public function store(Request $request){
@@ -46,7 +56,18 @@ class ExamsController extends Controller
         return redirect('/home/ispiti');
     }
 
-    public function edit(){}
+    public function ShowExam(){
+
+        //izvadili smo studenta
+        $em = Auth::user()->email;
+        $stud = Student::where('email',$em)->value('student_id');
+        //izvukli smo predmete koje student moze da polaze
+        $search=Exam::with('subject')->where('start','=','1')->where('code_stud','=',$stud)->get();
+        //Izvlacimo podatke o predmetu koje je student prijavio da polaze
+        
+        return view('links.ispiti',compact('search'));
+
+    }
 
     public function update($id){
 

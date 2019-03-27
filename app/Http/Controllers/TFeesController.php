@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\TFee;
+use App\Student;
+
 
 class TFeesController extends Controller
 {
     public function index(){
-    	$index=new TFee;
-    	$index=$index::all();
-    	return view('links.skolarine_i_uplata',compact('index'));
+    	
+        $em=Auth::user()->email;
+        $stud=Student::where('email',$em)->value('student_id');
+        $fee=TFee::where('stud_id',$stud)->get();
+        //$fee=dd($fee);
+    	return view('links.skolarine_i_uplata',compact('fee'));
     }
     public function store(Request $request){
 

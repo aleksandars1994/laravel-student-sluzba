@@ -21,14 +21,14 @@
                                 </div>
                             </form>
                         <br>
-                        <br>
-                                 @if (\Session::has('success'))
+                        <br>@if (\Session::has('success'))
                             <div class="alert alert-success">
                                  <ul>
                              <li>{!! \Session::get('success') !!}</li>
                                 </ul>
                             </div>
                                  @endif
+                                 
                         <div class="panel">
                             @if(isset($details))
                                 <p> Rezultat pretrage za vas pojam <b> {{ $query }} </b> je :</p>

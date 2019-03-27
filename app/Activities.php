@@ -8,6 +8,6 @@ class Activities extends Model
 {
      public function exam()
     {
-        return $this->belongsTo('App\Subject');
+        return $this->hasMany('App\Subject');
     }
 }

@@ -23,6 +23,28 @@
                                     <th>Aktivnosti</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @if(count($search)>0)
+                                    @foreach($search as $s)
+                                        <tr>
+                                            <td>{{$s->code}}</td>
+                                            <td>{{$s->subject->id}}</td>
+                                            <td>{{$s->subject->name}}</td>
+                                            <td>{{$s->subject->n_gr}}</td>
+                                            <td>{{$s->subject->type_of_application}}</td>
+                                            <td>{{$s->points}}</td>
+                                            <td>{{$s->grade}}</td>
+                                            <td>{{$s->espb}}</td>
+                                            <td>{{$s->deadline}}</td>
+                                            <td>{{$s->date}}</td>
+                                            <td>{{$s->signed_by}}</td>
+                                            <td><a href="{{url('pogledaj/'.$s->code_act)}}"><button type="submit" class="btn btn-default">
+                                            <img src="/pics/search.png" style="width: 20px;height: 20px;"></span>
+                                        </button></a></td> 
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
                         </table>
                 </div>
             </div>

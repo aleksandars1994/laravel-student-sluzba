@@ -24,6 +24,7 @@ class CreateExamsTable extends Migration
             $table->text('deadline')->nullable();
             $table->text('date')->nullable();
             $table->text('signed_by')->nullable();
+
         });
 
         Schema::table('exams',function(Blueprint $table){
@@ -35,6 +36,10 @@ class CreateExamsTable extends Migration
         Schema::table('exams',function(Blueprint $table){
             $table->foreign('code_act')->references('id')->on('activities');
         });
+        Schema::table('exams',function(Blueprint $table){
+            $table->boolean('start')->default(0)->after('signed_by');
+        });
+
 
 
     }

@@ -20,7 +20,28 @@
                                     <th>Rok uplate</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @if(count($fee) > 0)
+                                <tr>
+                                    @foreach($fee as $ind)
+                                        
+                                            
+                                            <td>{{$ind->school_year}}</td>
+                                            <td>{{$ind->study_year}}</td>
+                                            <td>{{$ind->status_of_registration}}</td>
+                                            <td>{{$ind->method_of_registration}}</td>
+                                            <td>{{$ind->type_of_payment}}</td>
+                                            <td>{{$ind->rate}}</td>
+                                            <td>{{$ind->rate_number}}</td>
+                                            <td>{{$ind->amount}}</td>
+                                            <td>{{$ind->payment_deadline}}</td>
+                                        
+                                    @endforeach
+                                </tr>
+                                @endif
+                            </tbody>
                         </table>
+                        <br><br><br>
                         <div class="well">
                             <p>
                                 Nacin popunjavanja uplatnica:

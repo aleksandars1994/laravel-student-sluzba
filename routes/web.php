@@ -26,17 +26,15 @@ Route::get('/home/biranje_predmeta','SubjectsController@indexCheck');
 
 Route::get('prijavi/{id}','ExamsController@SubmitSubject');
 
-Route::get('/home/ispiti',function(){
-	return view('links.ispiti');
-});
+Route::get('/home/ispiti','ExamsController@ShowExam');
+
 Route::get('/home/moji_predmeti','SubjectsController@indexPreview');
 
-Route::get('/home/prijava_ispita',function(){
-	return view('links.prijava_ispita');
-});
-Route::get('/home/skolarine_i_uplata',function(){
-	return view('links.skolarine_i_uplata');
-});
+Route::get('/home/prijava_ispita','ExamsController@index');
+
+Route::get('prijavi_ispit/{id}','ExamsController@startExam');
+
+Route::get('/home/skolarine_i_uplata','TFeesController@index');
 
 Auth::routes();
 

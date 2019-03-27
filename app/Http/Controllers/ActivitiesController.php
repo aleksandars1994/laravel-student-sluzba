@@ -21,7 +21,7 @@ class ActivitiesController extends Controller
     {
         $em=Auth::user()->email;
         $stud = Student::where('email',$em)->pluck('student_id');
-        $ex= Exam::where('code_stud',$stud)->get();
+        $ex= Exam::with('subject')->where('code_stud',$stud)->get();
         return view('links.aktivnosti',compact('ex'));
     }
 

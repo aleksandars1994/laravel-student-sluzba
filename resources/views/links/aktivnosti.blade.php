@@ -17,13 +17,13 @@
                                  @if(count($ex)>0)
                                 @foreach($ex as $exam)
                                 <tr>
-                                        <td>
+                                        <td><a href="{{url('pogledaj/'.$exam->code_act)}}">
                                             <button type="submit" class="btn btn-default">
                                             <img src="/pics/search.png" style="width: 20px;height: 20px;"></span>
                                             </button>
                                         </td>
-                                        <td>{{$exam->code_subject}}</td>
-                                        <td>{{$exam->ngr}}</td>
+                                        <td>{{$exam->subject->name}}</td>
+                                        <td>{{$exam->subject->n_gr}}</td>
                                 </tr>
                                 @endforeach
                                 @endif
