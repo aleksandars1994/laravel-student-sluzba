@@ -22,6 +22,10 @@ Route::get('/home/administracija','StudentsController@index');
 
 Route::get('/home/aktivnosti','ActivitiesController@index');
 
+Route::get('pogledaj/{id}','ActivitiesController@show');
+
+Route::get('aktivnosti/{id}','ActivitiesController@showInfo');
+
 Route::get('/home/biranje_predmeta','SubjectsController@indexCheck');
 
 Route::get('prijavi/{id}','ExamsController@SubmitSubject');
@@ -35,6 +39,15 @@ Route::get('/home/prijava_ispita','ExamsController@index');
 Route::get('prijavi_ispit/{id}','ExamsController@startExam');
 
 Route::get('/home/skolarine_i_uplata','TFeesController@index');
+
+Route::get('/home/nazad',function(){
+	return redirect()->to('/home/aktivnosti');
+});
+
+Route::get('/nazad',function(){
+	return redirect()->to('/home/ispiti');
+});
+
 
 Auth::routes();
 

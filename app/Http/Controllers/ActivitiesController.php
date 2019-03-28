@@ -71,7 +71,18 @@ class ActivitiesController extends Controller
      */
     public function show($id)
     {
-        //
+        $em=Auth::user()->email;
+        $stud = Student::where('email',$em)->pluck('student_id');
+        $ex= Exam::with('subject','activities')->where('code_stud',$stud)->where('code_act',$id)->get();
+        return view('aktivnosti-info.infoact',compact('ex'));
+    }
+
+    public function showInfo($id)
+    {
+        $em=Auth::user()->email;
+        $stud = Student::where('email',$em)->pluck('student_id');
+        $ex= Exam::with('subject','activities')->where('code_stud',$stud)->where('code_act',$id)->get();
+        return view('aktivnosti-info.examinfo',compact('ex'));
     }
 
     /**

@@ -38,7 +38,7 @@
                                             <td>{{$s->deadline}}</td>
                                             <td>{{$s->date}}</td>
                                             <td>{{$s->signed_by}}</td>
-                                            <td><a href="{{url('pogledaj/'.$s->code_act)}}"><button type="submit" class="btn btn-default">
+                                            <td><a href="{{url('aktivnosti/'.$s->code_act)}}"><button type="submit" class="btn btn-default">
                                             <img src="/pics/search.png" style="width: 20px;height: 20px;"></span>
                                         </button></a></td> 
                                         </tr>
