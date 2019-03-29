@@ -41,7 +41,7 @@
                                     </tr>
                                     @endforeach
                                     @else
-                                        <h3>Nema predmeta za ispit</h3>
+                                        <h3>Nema ispita za prijavu</h3>
                                 @endif
                             </tbody>
                         </table>

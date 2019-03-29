@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 use App\Activities;
 use App\User;
 use App\Student;
+use App\Subject;
 use App\Exam;
 
 
 class ActivitiesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -83,6 +88,61 @@ class ActivitiesController extends Controller
         $stud = Student::where('email',$em)->pluck('student_id');
         $ex= Exam::with('subject','activities')->where('code_stud',$stud)->where('code_act',$id)->get();
         return view('aktivnosti-info.examinfo',compact('ex'));
+    }
+
+    public function showSubjectName(){
+
+        $subject= new Subject;
+        $subject=$subject::all();
+        return view('admin.update_students_activities')->with('subject',$subject);
+        
+    }
+
+    public function UpdateActivities(Request $request){
+
+        $this->validate($request,[
+            'stud'=>'required',
+            'pred'=>'required',
+            'kol1'=>'required',
+            'ispit'=>'required'
+        ]);
+
+        $stud=request('stud');
+        $pred=request('pred');
+
+        $update=Exam::where('code_stud',$stud)->where('code_subject',$pred)->value('code_act');
+        $store=Activities::find($update);
+        $store->test_1=request('kol1');
+        $store->test_2=request('kol2');
+        $store->test_3=request('kol3');
+        $store->term_paper_1=request('sem1');
+        $store->term_paper_2=request('sem2');
+        $store->exam=request('ispit');
+        $store->save();
+
+        $points=($store->test_1)+($store->test_2)+($store->test_3)
+        +($store->term_paper_2)+($store->term_paper_1)+($store->exam);
+
+        $grade=0;
+
+        if($points<60)
+            $grade=6;
+        elseif($points<70)
+            $grade=7;
+        elseif($points<80)
+            $grade=8;
+        elseif($points<90)
+            $grade=9;
+        elseif($points<100)
+            $grade=10;
+        elseif($points<51)
+            $grade=5;
+        
+
+        $exam=Exam::where('code_stud',$stud)->where('code_subject',$pred)->update(array('points' => $points,'grade'=>$grade));
+
+        return redirect()->back()->with('success','Azurirane su aktivnosti studenta '.$stud);
+
     }
 
     /**

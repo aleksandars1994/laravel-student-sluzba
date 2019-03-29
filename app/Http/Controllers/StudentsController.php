@@ -17,7 +17,10 @@ use App\Exam;
 class StudentsController extends Controller
 {use RegistersUsers;
 
-
+   public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     
 

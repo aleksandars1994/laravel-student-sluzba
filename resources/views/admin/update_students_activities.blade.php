@@ -6,32 +6,55 @@
                 <div class="panel-heading">Azuriranje aktivnosti studenata</div>
 
                 <div class="panel-body">
-                   <form method="post" action="#" autocomplete="off">
+                   <form method="post" action="/admin/azuriranje" autocomplete="off">
+
+                                    @if(count($errors)>0)
+                                <ul>
+                                   @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                                </ul>
+                                @endif
+
+                                @if (\Session::has('success'))
+                            <div class="alert alert-success">
+                                <ul>
+                                    <li>{!! \Session::get('success') !!}</li>
+                                </ul>
+                            </div>
+                            @endif
 
                         {{csrf_field()}}
                         <label>Student</label>
                         <input type="text" name="stud" value="{{old('stud')}}"/>
 
                         <label>Predmet</label>
-                        <input type="text" name="pred" value="{{old('pred')}}"/><br><br>
+                        @if(count($subject)>0)
+                        <select name='pred'>
+                        @foreach($subject as $name)
+                            <option value="{{$name->id}}">{{$name->name}}</option>
+                        @endforeach
+                        </select><br><br>
+
+                        @endif
 
                         <label>Kolokvijum 1</label>
-                        <input type="text" name="kol1" value="{{old('kol1')}}"/><br><br>
+                        <input type="text" name="kol1" value=0><br><br>
 
                         <label>Kolokvijum 2</label>
-                        <input type="text" name="kol2" value="{{old('kol2')}}"/><br><br>
+                        <input type="text" name="kol2" value=0><br><br>
 
                         <label>Kolokvijum 3</label>
-                        <input type="text" name="kol3" value="{{old('kol3')}}"/><br><br>
+                        <input type="text" name="kol3" value=0><br><br>
 
                         <label>Seminarski 1</label>
-                        <input type="text" name="sem1" value="{{old('sem1')}}"/><br><br>
+                        <input type="text" name="sem1" value=0><br><br>
 
                         <label>Seminarski 2</label>
-                        <input type="text" name="sem2" value="{{old('sem2')}}"/><br><br>
+                        <input type="text" name="sem2" value=0><br><br>
 
                         <label>Ispit</label>
-                        <input type="text" name="ispit" value="{{old('kol1')}}"/><br><br>
+                        <input type="text" name="ispit" value=0><br><br>
 
                         <input type="submit" value="Sacuvaj"/>
                         <input type="reset" value="Ponisti"/>

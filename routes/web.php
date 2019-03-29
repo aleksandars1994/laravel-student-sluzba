@@ -14,7 +14,7 @@
 Route::group(['middleware' => 'web'], function () {
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 Route::get('/home/obavestenja','InfosController@index');
 
@@ -77,9 +77,9 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 	//kraj
 
 	//Ruta za azuriranje aktivnosti studenta
-		Route::get('/azuriraj_aktivnosti_studenta',function(){
-			return view('admin.update_students_activities');
-		});
+		Route::get('/azuriraj_aktivnosti_studenta','ActivitiesController@showSubjectName');
+
+		Route::post('/azuriranje','ActivitiesController@UpdateActivities');
 	//kraj
 
 	//Ruta za pretragu baze studenata

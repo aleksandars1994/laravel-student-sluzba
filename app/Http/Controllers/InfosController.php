@@ -7,6 +7,11 @@ use App\Info;
 
 class InfosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
      public function index(){
     	$index=new Info;
     	$index=$index::all();
