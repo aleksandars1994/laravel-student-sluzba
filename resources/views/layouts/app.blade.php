@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>VTS "5 Maj"-Zrenjanin</title>
+    <title>Studentski Informacioni Sistem</title>
 
     <!--<title>{{ config('app.name', 'Laravel') }}</title>-->
 
@@ -22,6 +22,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
 </head>
 <body>
     <div id="app">
@@ -39,7 +40,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        Visoka Tehnicka Skola "5 Maj" - Zrenjanin
+                        Studentski Informacioni Sistem
                     </a>
                 </div>
 

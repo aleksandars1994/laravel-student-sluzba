@@ -32,6 +32,18 @@ class StudentsController extends Controller
         
     	return view('links.administracija',compact('stud'));
     }
+
+    public function CheckInfo($id=null){
+
+        if($id) 
+        {
+             $stud=Student::where('student_id',$id)->get()->first();
+            return view('admin.helper.studinfo')->with('stud',$stud);
+        }
+
+    }
+
+
     public function store(Request $request){
 
     	$this->validate($request,[
@@ -49,7 +61,7 @@ class StudentsController extends Controller
             'mobile_num'=>'required',
     	]);
 
-            $user = User::create([
+            $userid = User::insertGetId([
             'name' => $request['ime'],
             'email' => $request['email'],
             'password' => bcrypt($request['sifra_email']),
@@ -71,6 +83,7 @@ class StudentsController extends Controller
             $store->city=request('mesto');
             $store->pin=request('jmbg');
             $store->email=request('email');
+            $store->users_id=$userid;
             $store->password=bcrypt('sifra_email');
             $store->phone_num=request('phone_num');
             $store->mobile_num=request('mobile_num');
@@ -98,28 +111,65 @@ class StudentsController extends Controller
     }
 
 
-    public function update($id){
+    public function update(Request $request,$id){
+   
+        
+        $this->validate($request,[
+          
+            'n_ime'=>'required',
+            'n_prez'=>'required',
+            'n_rod'=>'required',
+            'n_pol'=>'required',
+            'n_datum'=>'required',
+            'n_mesto'=>'required',
+            'n_jmbg'=>'required',
+            'n_mob'=>'required',
+            'n_tel'=>'required',
+            'n_email'=>'required',
+            'n_sif'=>'required'
+        ]);
 
-        $update=Student::find($id);
-        $update->student_id=request('sifra');
-        $update->name=request('ime');
-        $update->last_name=request('prezime');
-        $update->parent_name=request('ime_roditelja');
-        $update->gender=request('pol');
-        $update->date_of_birth=request('datum_rodjenja');
-        $update->city=request('mesto');
-        $update->pin=request('jmbg');
-        $update->email=request('email');
-        $update->phone_num=request('phone_num');
-        $update->mobile_num=request('mobile_num');
-        $update->save();
+        $password=bcrypt(request('n_sif'));
+        $usersID=Student::where('student_id',$id)->value('users_id');
 
-        return redirect('/admin/kreiraj_novog_studenta');
+        $User = User::with('student')->find($usersID);
+        $User->name = $request->input('n_ime');
+        $User->email = $request->input('n_email');
+        $User->password=$password;
+        $User->student->name = $request->input('n_ime');
+        $User->student->last_name = $request->input('n_prez');
+        $User->student->parent_name = $request->input('n_rod');
+        $User->student->gender = $request->input('n_pol');
+        $User->student->date_of_birth = $request->input('n_datum');
+        $User->student->city = $request->input('n_mesto');
+        $User->student->pin = $request->input('n_jmbg');
+        $User->student->email = $request->input('n_email');
+        $User->student->password=$password;
+        $User->student->phone_num = $request->input('n_tel');
+        $User->student->mobile_num = $request->input('n_mob');
+        $User->push();
+
+        return redirect('/admin/info/'.$id);//->with('user',$user);
     }
 
-    public function remove($id){
+    public function remove($id=null){//prosledjuje id studenta
 
-    	$delete=Student::find($id)->delete();
-    	return redirect('/home/administracija');
+        if($id){
+
+        	$stud=Student::where('student_id',$id)->value('email');
+            $exam=Exam::where('code_stud',$id)->pluck('code_act');
+
+            if(($exam != null)&&($stud != null)){
+
+                $delete3=Exam::where('code_stud',$id)->delete();
+                $delete1=Activities::whereIn('id',$exam)->delete();
+                $delete4=TFee::where('stud_id',$id)->delete();
+                $delete2=Student::where('student_id',$id)->delete();
+                $delete5=User::where('email',$stud)->delete();
+                   
+            }
+            
+        	return redirect()->to('/admin/pretrazi_bazu_s')->send();
+        }
     }
 }

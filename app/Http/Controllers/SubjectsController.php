@@ -32,6 +32,14 @@ class SubjectsController extends Controller
         return view('links.moji_predmeti',compact('index'));
     
     }
+
+    public function view($id){
+
+        $subj=Subject::find($id);
+        return view('admin.helper.subjinfo',compact('subj'));
+
+    }
+
     public function store(Request $request){
 
     	$this->validate($request,[
@@ -71,40 +79,60 @@ class SubjectsController extends Controller
     }
     public function SearchSubject(){
         $q = Input::get ( 'q' );
-        $user = Subject::where('name','LIKE','%'.$q.'%')->get();
+        $subject = Subject::where('name','LIKE','%'.$q.'%')->get();
         
-         if(count($user) > 0 && $q!="")
-            return view('admin.search_subjects_database')->withDetails($user)->withQuery ( $q );
+         if(count($subject) > 0 && $q!="")
+            return view('admin.search_subjects_database')->withDetails($subject)->withQuery ( $q );
         else
          return view ('admin.search_subjects_database');
     }
-    public function update($id){
+    public function update(Request $request,$id){
 
+        $this->validate($request,[
+          
+            'n_naziv'=>'required',
+            'n_tipn'=>'required',
+            'n_tipp'=>'required',
+            'n_sg'=>'required',
+            'n_sem'=>'required',
+            'n_t1'=>'required',
+            'n_t2'=>'required',
+            'n_t3'=>'required',
+            'n_s1'=>'required',
+            'n_s2'=>'required',
+            'n_ispit'=>'required',
+            'n_espb'=>'required',
+            'n_rok'=>'required',
+            'n_pro'=>'required',
+            'n_date'=>'required'
+        ]);
+        $ide=$id;
         $update=Subject::find($id);
-    	  $update->code=request('sifra');
-        $update->name=request('naziv');
-        $update->type_of_teaching=request('tip_nastave');
-        $update->type_of_application=request('tip_prijave');
-        $update->school_year=request('skolska_godina');
-       	$update->term=request('semestar');
-       	$update->test1=request('test1');
-       	$update->test2=request('test2');
-       	$update->test3=request('test3');
-       	$update->term_paper_1=request('term_paper_1');
-       	$update->term_paper_2=request('term_paper_2');
-       	$update->exam=request('exam');
-        $update->espb=request('espb');
-        $update->deadline=request('rok');
-        $update->signed_by=request('potpisao');
-        $update->deadline=request('rok');
-        $update->date=request('date');
+        $update->name=request('n_naziv');
+        $update->type_of_teaching=request('n_tipn');
+        $update->type_of_application=request('n_tipp');
+        $update->school_year=request('n_sg');
+       	$update->term=request('n_sem');
+       	$update->test_1=request('n_t1');
+       	$update->test_2=request('n_t2');
+       	$update->test_3=request('n_t3');
+       	$update->term_paper_1=request('n_s1');
+       	$update->term_paper_2=request('n_s2');
+       	$update->exam=request('n_ispit');
+        $update->espb=request('n_espb');
+        $update->deadline=request('n_rok');
+        $update->signed_by=request('n_pro');
+        $update->date=request('n_date');
         $update->save();
 
-        return redirect('/home/moji_predmeti');
+        return redirect('/admin/subj/info/'.$ide);
     }
-    public function remove($id){
 
-    	$delete=Subject::find($id)->delete();
-    	return redirect('/home/administracija');
+    public function removeSubject($id){
+
+        $delete1=Exam::where('code_subject',$id)->delete();
+    	$delete2=Subject::find($id)->delete();
+
+    	return redirect()->to('/admin/pregledaj_predmete/')->send();
     }
 }

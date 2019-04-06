@@ -65,6 +65,14 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 			return view('admin.info');
 		});
 
+		Route::get('/update/{id}','InfosController@edit');
+
+		Route::post('/update/info/{id}','InfosController@update');
+
+		Route::delete('/delete/info/{id}','InfosController@remove');
+
+		Route::get('/info/{id}','StudentsController@CheckInfo')->where('id', '(.*)');
+
 		Route::post('/sacuvajinfo','InfosController@store');
 	//kraj
 
@@ -73,13 +81,21 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 			return view('admin.create_new_student');
 		});
 		Route::post('/novstudent','StudentsController@store');
+
+		Route::get('/nazad',function(){
+			return view('admin.search_students_database');
+		});
+
+		Route::get('/nazad/subject',function(){
+			return view('admin.search_subjects_database');
+		});
 		
 	//kraj
 
 	//Ruta za azuriranje aktivnosti studenta
-		Route::get('/azuriraj_aktivnosti_studenta','ActivitiesController@showSubjectName');
+		//Route::get('/azuriraj_aktivnosti_studenta','ActivitiesController@showSubjectName');
 
-		Route::post('/azuriranje','ActivitiesController@UpdateActivities');
+		//Route::post('/azuriranje','ActivitiesController@UpdateActivities');
 	//kraj
 
 	//Ruta za pretragu baze studenata
@@ -116,7 +132,22 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 
 	//Pretraga studenta
 		Route::post('pregledaj_predmete/rezultat_predmeti','SubjectsController@SearchSubject');
+
+		Route::get('/subj/info/{id}','SubjectsController@view');
 	//kraj
+
+		
+		Route::post('/sacuvaj/studenta/{id}','StudentsController@update')->where('id','(.*)');
+
+		Route::post('/sacuvaj_i/{id}','SubjectsController@update');
+		
+
+		Route::delete('/delete/subject/{id}','SubjectsController@removeSubject');
+		
+		Route::delete('/delete/{id}','StudentsController@remove')->where('id', '(.*)');
+
+		
+		
 });
 
 });

@@ -8,9 +8,20 @@ class Student extends Model
 {
     public $timestamps = false;
 
+    //protected $fillable=['name'];
+
+    protected $guarded=[];
+
+    protected $primaryKey = 'student_id'; // or null
+
+    public $incrementing = false;
+
+    public $fillable=['email'];
+
+
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 
     public function exam()

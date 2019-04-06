@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Info;
 
@@ -20,6 +21,7 @@ class InfosController extends Controller
         
     }
 
+
     public function store(Request $request){
 
     	$this->validate($request,[
@@ -30,23 +32,37 @@ class InfosController extends Controller
     	$store->info = request('Poruka');
         $store->save();
 
-        return redirect('/admin/postavi_obavestenje/');
+        return redirect()->back()->with('success','Napravili ste novo obavestenje!');
     }
 
-    public function edit(){}
 
-    public function update($id){
+    public function edit($id){
+        $edit=Info::find($id);
+        return view('admin.helper.updateInfo',compact('edit'));
+    }
+
+    public function update( Request $request,$id){
+
+         $validator = Validator::make($request->all(), [
+            'n_poruka' => 'required|max:50'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator,'info')
+                        ->withInput();
+        }
 
     	$update=Info::find($id);
-    	$update->info=request('Poruka');
+    	$update->info=request('n_poruka');
         $update->save();
 
-        return redirect('/home/obavestenja');
+        return redirect('/admin/postavi_obavestenje/');
     }
 
     public function remove($id){
     	$delete=Info::find($id)->delete();
-    	return redirect('/home/obavestenja');
+    	return redirect('/admin/postavi_obavestenje/');
     }
 }
 

@@ -24,10 +24,13 @@ class CreateStudentsTable extends Migration
             $table->text('city');
             $table->integer('pin');
             $table->string('email');
-            $table->foreign('email')->references('email')->on('users');
+            $table->integer('users_id')->unsigned();
             $table->text('password');
             $table->integer('phone_num');
             $table->integer('mobile_num');
+        });
+        Schema::table('students',function(Blueprint $table){
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

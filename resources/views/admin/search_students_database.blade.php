@@ -7,7 +7,7 @@
                     <div class="panel-body">
 
                         
-                       <form action="rezultat" method="POST" role="search" required>
+                       <form action="/admin/pretrazi_bazu_s/rezultat" method="POST" role="search" required>
                                 {{ csrf_field() }}
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="q"

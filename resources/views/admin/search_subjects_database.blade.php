@@ -9,7 +9,7 @@
 
 
                 <div class="panel-body">
-                  <form action="rezultat_predmeti" method="POST" role="search" required>
+                  <form action="/admin/pregledaj_predmete/rezultat_predmeti" method="POST" role="search" required>
                                 {{ csrf_field() }}
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="q"
@@ -41,10 +41,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($details as $user)
+                                    @foreach($details as $subject)
                                     <tr>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->signed_by}}</td>
+                                        <td class="col-md-3">{{$subject->name}}</td>
+                                        <td class="col-md-3">{{$subject->signed_by}}</td>
+                                        <td class="col-md-1">
+                                           <a href="{{url('/admin/subj/info/'.$subject->id)}}"><button type="button" class="btn btn-info">Informacije</button></a>
+                                        </td>
+                                        
+                                        <td class="col-md-1"><form action="{{url('/admin/delete/subject/'.$subject->id)}}" method="post">
+                                            {{csrf_field()}}   
+                                            {{method_field('DELETE')}} 
+                                            <button type="submit" class="btn btn-danger">Izbrisi Predmet</button>
+                                        </form></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
