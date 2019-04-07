@@ -15,9 +15,9 @@ class CreateExamsTable extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->increments('code');
-            $table->char('code_stud')->nullable();
-            $table->integer('code_subject')->unsigned()->nullable();
-            $table->integer('code_act')->unsigned()->nullable();
+            $table->char('code_stud');
+            $table->integer('code_subject')->unsigned();
+            $table->integer('code_act')->unsigned();
             $table->integer('points')->nullable();
             $table->integer('grade')->nullable();
             $table->integer('espb')->nullable();//zapravo trebao bi double ali cilj je trenutno jednostavnost

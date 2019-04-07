@@ -50,10 +50,10 @@ class ActivitiesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'kolokvijum1'=>'required',
-            'kolokvijum2'=>'required',
-            'seminarski1'=>'required',
-            'ispit'=>'required'
+            'kolokvijum1'=>'required|numeric|digits:2',
+            'kolokvijum2'=>'required|numeric|digits:2',
+            'seminarski1'=>'required|numeric|digits:2',
+            'ispit'=>'required|numeric|min:0|max:50|digits:2'
         ]);
 
         $store=new Activities;
@@ -101,10 +101,10 @@ class ActivitiesController extends Controller
     public function UpdateActivities(Request $request){
 
         $this->validate($request,[
-            'stud'=>'required',
-            'pred'=>'required',
-            'kol1'=>'required',
-            'ispit'=>'required'
+            'stud'=>'required|numeric|digits:2',
+            'pred'=>'required|numeric|digits:2',
+            'kol1'=>'required|numeric|digits:2',
+            'ispit'=>'required|numeric|min:0|max:50|digits:2'
         ]);
 
         $stud=request('stud');
