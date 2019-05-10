@@ -20,10 +20,11 @@ class CreateExamsTable extends Migration
             $table->integer('code_act')->unsigned();
             $table->integer('points')->nullable();
             $table->integer('grade')->nullable();
-            $table->integer('espb')->nullable();//zapravo trebao bi double ali cilj je trenutno jednostavnost
+            $table->integer('espb')->nullable();
             $table->text('deadline')->nullable();
             $table->text('date')->nullable();
             $table->text('signed_by')->nullable();
+            $table->tinyInteger('start')->default(0);
 
         });
 
