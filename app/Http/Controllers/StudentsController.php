@@ -47,18 +47,20 @@ class StudentsController extends Controller
     public function store(Request $request){
 
     	$this->validate($request,[
-            'sifra'=>'required',
-            'ime'=>'required',
-            'prezime'=>'required',
-            'ime_roditelja'=>'required',
+            'sifra_kod'=>'required',
+            'sifra_deo_1'=>'required|numeric',
+            'sifra_deo_2'=>'required|numeric',
+            'ime'=>'required|alpha|max:15',
+            'prezime'=>'required|alpha|max:20',
+            'ime_roditelja'=>'required|alpha|max:15',
             'pol'=>'required',
-            'datum_rodjenja'=>'required',
-            'mesto'=>'required',
-            'jmbg'=>'required|max:11',
+            'datum_rodjenja'=>'required|date',
+            'mesto'=>'required|alpha',
+            'jmbg'=>'required|size:11',
             'email'=>'required|email|unique:users',
             'sifra_email'=>'required|min:6',
-            'phone_num'=>'required',
-            'mobile_num'=>'required',
+            'phone_num'=>'required|min:9|max:10',
+            'mobile_num'=>'required|min:9|max:10',
     	]);
 
             $userid = User::insertGetId([
@@ -74,7 +76,7 @@ class StudentsController extends Controller
             $UserData->save();
             */
             $store=new Student;
-            $store->student_id=request('sifra');
+            $store->student_id=request('sifra_kod')."".request('sifra_deo_1')."/".request('sifra_deo_2');
             $store->name=request('ime');
             $store->last_name=request('prezime');
             $store->parent_name=request('ime_roditelja');
@@ -90,7 +92,7 @@ class StudentsController extends Controller
             $store->save();
 
             $fees=new TFee;
-            $fees->stud_id=request('sifra');
+            $fees->stud_id=request('sifra_kod')."".request('sifra_deo_1')."/".request('sifra_deo_2');
             $fees->save();
         
             //return redirect('/admin/kreiraj_novog_studenta/');
@@ -98,16 +100,25 @@ class StudentsController extends Controller
             return redirect()->back()->with('success', 'Kreiran je nov student!'); 
         
     }
-
+    
+    
     public function SearchStudent(){
-
-        $q = Input::get ( 'q' );
-            $user = Student::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('last_name','LIKE','%'.$q.'%')->get();
-            
-             if(count($user) > 0 && $q!="")
-                return view('admin.result')->withDetails($user)->withQuery ( $q );
-            else
-             return view ('admin.result');
+        
+        $student=request('student');
+        $godina=request('prvi-deo')."/".request('drugi-deo');
+        $ispis=$student."".$godina;
+        //return dd($ispis);
+        
+        $user = Student::where('student_id','LIKE',$student.'%')->where('s_year',$godina)->get();
+        //return dd($user);
+       return view('admin.result',compact('user','ispis'));
+    }
+    
+    public function ViewStudent()
+    {
+        $korisnik=new Student;
+        $korisnik=$korisnik->paginate(20);;
+        return view ('admin.search_students_database',compact('korisnik'));
     }
 
 
@@ -115,18 +126,18 @@ class StudentsController extends Controller
    
         
         $this->validate($request,[
-          
-            'n_ime'=>'required',
-            'n_prez'=>'required',
-            'n_rod'=>'required',
+            'n_skolska_godina'=>'required',
+            'n_ime'=>'required|alpha',
+            'n_prez'=>'required|alpha',
+            'n_rod'=>'required|alpha',
             'n_pol'=>'required',
-            'n_datum'=>'required',
-            'n_mesto'=>'required',
-            'n_jmbg'=>'required',
-            'n_mob'=>'required',
-            'n_tel'=>'required',
-            'n_email'=>'required',
-            'n_sif'=>'required'
+            'n_datum'=>'required|date',
+            'n_mesto'=>'required|alpha',
+            'n_jmbg'=>'required|size:11',
+            'n_mob'=>'required|min:9|max:10',
+            'n_tel'=>'required|min:9|max:10',
+            'n_email'=>'required|email',
+            'n_sif'=>'required|min:6'
         ]);
 
         $password=bcrypt(request('n_sif'));
@@ -136,6 +147,7 @@ class StudentsController extends Controller
         $User->name = $request->input('n_ime');
         $User->email = $request->input('n_email');
         $User->password=$password;
+        $User->student->s_year = $request->input('n_skolska_godina');
         $User->student->name = $request->input('n_ime');
         $User->student->last_name = $request->input('n_prez');
         $User->student->parent_name = $request->input('n_rod');

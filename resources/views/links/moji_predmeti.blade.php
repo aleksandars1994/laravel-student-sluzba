@@ -23,15 +23,17 @@
                                 
                                     @foreach($index as $detail)
                                     <tr>
-                                        <td>{{$detail->id}}</td>
-                                        <td>{{$detail->name}}</td>
-                                        <td>{{$detail->n_gr}}</td>
-                                        <td>{{$detail->type_of_application}}</td>
-                                        <td>{{$detail->school_year}}</td>
-                                        <td>{{$detail->term}}</td>
-                                        <td><button type="submit" class="btn btn-default">
-                                            <img src="/pics/search.png" style="width: 20px;height: 20px;"></span>
-                                        </button></td>
+                                        <td>{{$detail->subject->id}}</td>
+                                        <td>{{$detail->subject->name}}</td>
+                                        <td>{{$detail->subject->n_gr}}</td>
+                                        <td>{{$detail->subject->type_of_application}}</td>
+                                        <td>{{$detail->subject->school_year}}</td>
+                                        <td>{{$detail->subject->term}}</td>
+                                        <td><a href="{{url('pogledaj2/'.$detail->activities->id)}}">
+                                            <button type="submit" class="btn btn-default">
+                                            <img src="/pics/search.png" style="width: 20px;height: 20px;">
+                                            </button></a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                     @else

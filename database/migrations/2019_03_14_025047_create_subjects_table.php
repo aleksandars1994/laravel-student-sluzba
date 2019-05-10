@@ -21,6 +21,7 @@ class CreateSubjectsTable extends Migration
             $table->text('school_year');
             $table->text('type_of_application');
             $table->text('term');
+            $table->integer('count_stud');
             $table->integer('test_1')->default(0);
             $table->integer('test_2')->default(0);
             $table->integer('test_3')->default(0);

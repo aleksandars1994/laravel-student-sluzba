@@ -27,10 +27,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /*
     public function isRole()
     {
         return $this->admin;
     }
+    */
 
     public function student()
     {

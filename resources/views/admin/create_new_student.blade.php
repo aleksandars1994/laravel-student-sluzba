@@ -29,7 +29,19 @@
                              <legend>Novi Student</legend>
                              {{ csrf_field() }}
                         <label>Sifra studenta</label>
-                        <input type="text" name="sifra" value="{{old('sifra')}}" /><br><hr>
+                        <select name="sifra_kod">
+                            <option value="IT">IT</option>
+                            <option value="EP">EP</option>
+                            <option value="MM">MM</option>
+                            <option value="ZP">ZP</option>
+                            <option value="CZ">CZ</option>
+                            <option value="EE">EE</option>
+                            <option value="VD">VD</option>
+                            <option value="GI">GI</option>
+                            <option value="BZ">BZ</option>
+                        </select>
+                        <input type="text" name="sifra_deo_1" maxlength="3" size="3" value="{{old('sifra2')}}" />/
+                        <input type="text" name="sifra_deo_2" maxlength="2" size="2" value="{{old('sifra')}}" /><br><hr>
                         <label> Ime</label>
                         <input type="text" name="ime" value="{{old('ime')}}"/>
                         <label> Prezime</label>

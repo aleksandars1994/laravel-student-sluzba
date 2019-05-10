@@ -11,7 +11,10 @@
 |
 */
 
+
+
 Route::group(['middleware' => 'web'], function () {
+    
 
 Route::get('/', function () {
     return view('auth.login');
@@ -23,6 +26,8 @@ Route::get('/home/administracija','StudentsController@index');
 Route::get('/home/aktivnosti','ActivitiesController@index');
 
 Route::get('pogledaj/{id}','ActivitiesController@show');
+
+Route::get('pogledaj2/{id}','ActivitiesController@show2');
 
 Route::get('aktivnosti/{id}','ActivitiesController@showInfo');
 
@@ -44,6 +49,10 @@ Route::get('/home/nazad',function(){
 	return redirect()->to('/home/aktivnosti');
 });
 
+Route::get('/home/moji_predmeti/nazad',function(){
+	return redirect()->to('/home/moji_predmeti');
+});
+
 Route::get('/nazad',function(){
 	return redirect()->to('/home/ispiti');
 });
@@ -53,6 +62,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+});
+Route::group(['middleware' => 'web'], function () {
+    
 Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 
 		Route::get('/', function () {
@@ -83,19 +95,19 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 		Route::post('/novstudent','StudentsController@store');
 
 		Route::get('/nazad',function(){
-			return view('admin.search_students_database');
+			return redirect('/admin/pretrazi_bazu_s');
 		});
 
 		Route::get('/nazad/subject',function(){
-			return view('admin.search_subjects_database');
+			return redirect('/admin/pregledaj_predmete');
 		});
 		
 	//kraj
 
 	//Ruta za azuriranje aktivnosti studenta
-		//Route::get('/azuriraj_aktivnosti_studenta','ActivitiesController@showSubjectName');
+		Route::get('/azuriraj_aktivnosti_studenta','ActivitiesController@showSubjectName');
 
-		//Route::post('/azuriranje','ActivitiesController@UpdateActivities');
+		Route::post('/azuriranje','ActivitiesController@UpdateActivities');
 	//kraj
 
 	//Ruta za pretragu baze studenata
@@ -103,7 +115,10 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 			return view('admin.search_students_database');
 		});
 	//
-
+    //Ruta za pregled baze studenata
+		Route::get('/pretrazi_bazu_s','StudentsController@ViewStudent');
+		
+	//
 	//Ruta za kreiranje novog predmeta
 		Route::post('/sacuvajpr','SubjectsController@store');
 
@@ -113,9 +128,7 @@ Route::group(['prefix'=>'admin','middleware'=> ['auth'=>'admin']],function(){
 	//kraj
 
 	//Ruta za pregled predmeta u bazi
-		Route::get('/pregledaj_predmete',function(){
-			return view('admin.search_subjects_database');
-		});
+		Route::get('/pregledaj_predmete','SubjectsController@ShowAll');
 	//kraj
 
 	//Ruta za azuriranje skolarine

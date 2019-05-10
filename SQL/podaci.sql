@@ -1,0 +1,2 @@
+INSERT INTO `users` (`id`, `name`, `email`, `admin`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (1, 'Master', 'master@gmail.com', 'admin', '$2y$10$SgNoo4m4kgyC4qkyuwBe3.Df0LA9S/55bnjELzEpceMUkR4u2o3Ie', 'VNhfcWqPs4vZcu4XWcsyK4PzpId80kUgmXRXa07u8qJTaxdOUiFBiszFL0ZL', NULL, '2019-04-07 07:59:22');
+INSERT INTO `users` (`id`, `name`, `email`, `admin`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (2, 'Milan', 'milan@gmail.com', '0', '$2y$10$7QFXW4NhoAQEZoGaLOWzWuz.kCNRrQF3.1rlwyrhCvc6FmXSQSmK2', NULL, NULL, NULL);

@@ -50,10 +50,10 @@ class ActivitiesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'kolokvijum1'=>'required|numeric|digits:2',
-            'kolokvijum2'=>'required|numeric|digits:2',
-            'seminarski1'=>'required|numeric|digits:2',
-            'ispit'=>'required|numeric|min:0|max:50|digits:2'
+            'kolokvijum1'=>'required|numeric|min:0|max:50',
+            'kolokvijum2'=>'required|numeric|min:0|max:50',
+            'seminarski1'=>'required|numeric|min:0|max:50',
+            'ispit'=>'required|numeric|min:0|max:50'
         ]);
 
         $store=new Activities;
@@ -81,6 +81,14 @@ class ActivitiesController extends Controller
         $ex= Exam::with('subject','activities')->where('code_stud',$stud)->where('code_act',$id)->get();
         return view('aktivnosti-info.infoact',compact('ex'));
     }
+    
+    public function show2($id)
+    {
+        $em=Auth::user()->email;
+        $stud = Student::where('email',$em)->pluck('student_id');
+        $ex= Exam::with('subject','activities')->where('code_stud',$stud)->where('code_act',$id)->get();
+        return view('aktivnosti-info.infoact2',compact('ex'));
+    }
 
     public function showInfo($id)
     {
@@ -101,10 +109,10 @@ class ActivitiesController extends Controller
     public function UpdateActivities(Request $request){
 
         $this->validate($request,[
-            'stud'=>'required|numeric|digits:2',
-            'pred'=>'required|numeric|digits:2',
-            'kol1'=>'required|numeric|digits:2',
-            'ispit'=>'required|numeric|min:0|max:50|digits:2'
+            'stud'=>'required',
+            'pred'=>'required|numeric|min:0|max:50',
+            'kol1'=>'required|numeric|min:0|max:50',
+            'ispit'=>'required|numeric|min:0|max:50'
         ]);
 
         $stud=request('stud');

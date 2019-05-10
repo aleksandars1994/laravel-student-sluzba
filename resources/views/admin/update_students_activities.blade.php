@@ -29,15 +29,20 @@
                         <input type="text" name="stud" value="{{old('stud')}}"/>
 
                         <label>Predmet</label>
-                        @if(count($subject)>0)
+                       <label>Predmet</label>
                         <select name='pred'>
+                        @if(count($subject)>0)
                         @foreach($subject as $name)
                             <option value="{{$name->id}}">{{$name->name}}</option>
                         @endforeach
+                        </select>
+                        @else
+
+                        <option selected="select" disabled>Nema predmeta</option>
                         </select><br><br>
 
                         @endif
-
+                        <br><br>
                         <label>Kolokvijum 1</label>
                         <input type="text" name="kol1" value=0><br><br>
 

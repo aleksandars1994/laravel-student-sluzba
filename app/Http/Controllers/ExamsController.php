@@ -94,15 +94,53 @@ class ExamsController extends Controller
 
 
     public function SubmitSubject($id){
-
-        $subj = Subject::where('id', '=', $id)->first();
-
+        
+        $objects=array();
+        $subj = Subject::find($id);
+        //izvlacenje podataka o predmetu
         $em=Auth::user()->email;
         $stud = Student::where('email',$em)->value('student_id');
         //Izvadili smo id studenta
         
+        
+        $student=Student::find($stud);
+        $predmet_zamena=Subject::where('name',$subj->name)->where('school_year','!=',$subj->school_year)->get();
+        for($co=0;count($predmet_zamena)>$co;$co++)
+        {
+            $objects[$co]=$predmet_zamena[$co]->id;    
+        }
+        
+        $ispis=array();
+        
+            foreach($objects as $pk=>$pv)
+            {
+                $ispis[$pk]=Exam::where('code_stud',$student->student_id)->where('code_subject',$pv)->first();
+            }
+            $mini=array_values($ispis);
+            if(!(in_array(null,$ispis)))
+            {
+                $go=array();
+    
+                    for($io=0;count($mini)>$io;$io++)
+                    {
+                        $go[$io]=$mini[$io]->code_act;
+                    }
 
-        $actId=Activities::insertGetId([
+                $delete=array();
+                foreach($go as $g=>$o)
+                {
+                    $delete[$g]=Activities::find($o)->delete();
+                }
+                $delete=null;
+                $delete2=array();
+                foreach($ispis as $is=>$it)
+                {
+                    $delete2[$is]=Exam::where('code_stud',$student->student_id)->where('code_subject',$it)->delete();
+                }
+                $delete2=null;
+            }
+            
+         $actId=Activities::insertGetId([
         'test_1' => '0',
         'test_2' => '0',
         'test_3' => '0',
@@ -121,10 +159,10 @@ class ExamsController extends Controller
         $submit->date=$subj->date;
         $submit->signed_by=$subj->signed_by;
         $submit->save();
-        return redirect()->back()->with('success','Izabrali ste predmet');
         
-       // $index=dd($subj);
-        //return view('links.biranje_p',compact('index'));
+        
+        return redirect()->back()->with('success','Izabrali ste predmet');
+    
     }
 
     public function remove($id){

@@ -25,16 +25,16 @@ class TFeesController extends Controller
     public function store(Request $request){
 
     	$this->validate($request,[
-            'student'=>'required',
+            'student'=>'required|alpha-dash|size:7',
     		'sk_god'=>'required',
-            'god'=>'required',
-            'st_up'=>'required',
-            'nup'=>'required',
-            'tip'=>'required',
-            'rata'=>'required',
-            'brrata'=>'required',
-            'iznos'=>'required',
-            'rok'=>'required'
+            'god'=>'required|numerical|size:4',
+            'st_up'=>'required|alpha|size:8',
+            'nup'=>'required|alpha',
+            'tip'=>'required|alpha',
+            'rata'=>'required|numerical',
+            'brrata'=>'required|numerical',
+            'iznos'=>'required|numerical',
+            'rok'=>'required|date'
     	]);
     	
         $sk=request('student');

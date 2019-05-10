@@ -15,6 +15,7 @@
                      @if(count($index)>0)
                     @foreach($index as $i)
                         <div class="alert alert-info" role="alert">
+                            <small>Objavljeno: {{$i->created_at}}</small><br><br>
                             <p>{{$i->info}}</p>
                         </div>
                     @endforeach

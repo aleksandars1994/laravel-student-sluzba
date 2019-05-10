@@ -22,7 +22,7 @@
                 @endif
 
                 <div class="panel-body">
-                    <form method="post" action="/admin/sacuvajpr/">
+                    <form method="post" action="/admin/sacuvajpr">
                         {{csrf_field()}}
                         <fieldset>
                              <legend>Novi Predmet</legend>
@@ -59,12 +59,18 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select><br><br>
-                         <label>Kolokvijum 1</label>
-                        <input type="text" name="test1" value="{{old('test1')}}"/><br><br>
-                        <label>Kolokvijum 2</label>
-                        <input type="text" name="test2" value="{{old('test2')}}"/><br><br>
-                        <label>Kolokvijum 3</label>
-                        <input type="text" name="test3" value=0>
+                         <label>Kolokvijum Max 1</label>
+                        <input type="text" name="testmax1" value="{{old('testmax1')}}"/><br><br>
+                        <label>Kolokvijum Min 1</label>
+                        <input type="text" name="testmin1" value="{{old('testmin1')}}"/><br><br>
+                        <label>Kolokvijum Max 2</label>
+                        <input type="text" name="testmax2" value="{{old('testmax2')}}"/><br><br>
+                        <label>Kolokvijum Min 2</label>
+                        <input type="text" name="testmin2" value="{{old('testmin2')}}"/><br><br>
+                        <label>Kolokvijum Max 3</label>
+                        <input type="text" name="testmax3" value=0><br><br>
+                        <label>Kolokvijum Min 3</label>
+                        <input type="text" name="testmin3" value=0>
                         </div>
                         <div class="col-md-6">
                         <label>Seminarski 1</label><br>
@@ -73,6 +79,16 @@
                         <input type="text" name="term_paper_2" value=0><br><br>
                         <label>Ispit</label><br>
                         <input type="text" name="exam" value=0><br><br>
+                        <label>Smerovi</label><br>
+                        <input type="checkbox" name="sector[]" value="IT"> IT
+                        <input type="checkbox" name="sector[]" value="EP"> EP
+                        <input type="checkbox" name="sector[]" value="MM"> MM<br>
+                        <input type="checkbox" name="sector[]" value="ZP"> ZP
+                        <input type="checkbox" name="sector[]" value="CZ"> CZ
+                        <input type="checkbox" name="sector[]" value="EE"> EE<br>
+                        <input type="checkbox" name="sector[]" value="MS"> MS
+                        <input type="checkbox" name="sector[]" value="GI"> GI
+                        <input type="checkbox" name="sector[]" value="VD"> VD<br>
                         <label>ESPB</label><br>
                         <input type="text" name="espb"><br><br>
                         <label>Rok</label><br>

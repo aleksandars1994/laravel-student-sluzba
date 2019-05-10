@@ -1,9 +1,12 @@
-@extends('admin.search_students_database')
+@extends('admin')
 
-@section('result')
-<div class="panel">
-                            @if(isset($details))
-                                <p> Rezultat pretrage za vas pojam <b> {{ $query }} </b> je :</p>
+@section('admin_info')
+	<div class="col-md-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">Pretraga studenata</div>
+                    <div class="panel-body">
+                            @if(isset($user))
+                                <p> Rezultat pretrage za vas pojam <b> {{ $ispis }} </b> je :</p>
                             <h2>Detalji</h2>
                             <table class="table">
                                 <thead>
@@ -14,21 +17,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($details as $user)
+                                    @foreach($user as $use)
                                     <tr>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->last_name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td><a href="{{url('/admin/info/'.$user->student_id)}}"><button type="button" class="btn btn-info">Info</button></a></td>
+                                        <td>{{$use->name}}</td>
+                                        <td>{{$use->last_name}}</td>
+                                        <td>{{$use->email}}</td>
+                                        <td><a href="{{url('/admin/info/'.$use->student_id)}}"><button type="button" class="btn btn-info">Info</button></a></td>
                                         
                                         <td>
-                                            <form action="{{url('/admin/delete/'.$user->student_id)}}" method="post">  
+                                            <form action="{{url('/admin/delete/'.$use->student_id)}}" method="post">  
                                                 {{csrf_field()}} 
                                                 {{method_field('DELETE')}} 
                                                 <button type="submit" class="btn btn-danger">Izbrisi</button>
                                             </form>
                                         </td>
                                     </tr>
+                                    
                                     @endforeach
                                 </tbody>
                             </table>
@@ -36,5 +40,7 @@
                             <br>
                             <a href="/admin/pretrazi_bazu_s/">Nazad na pretragu</a>
                         </div>
-
+                </div>
+        </div>
+</div>
 @endsection

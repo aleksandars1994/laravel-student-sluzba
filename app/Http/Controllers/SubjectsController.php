@@ -14,21 +14,58 @@ use App\Exam;
 
 class SubjectsController extends Controller
 {
-    public function indexCheck(){
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }    
+    
+     public function indexCheck(){
 
         $em = Auth::user()->email;
         $stud = Student::where('email',$em)->value('student_id');
+        $s_year=Student::where('student_id',$stud)->value('s_year');
+        $extract=substr($stud, 0, 2);
         $exam = Exam::where('code_stud',$stud)->pluck('code_subject');
-        $index=Subject::whereNotIn('id',$exam)->get();                
-    	return view('links.biranje_p',compact('index'));
-    
+        $index=Subject::whereNotIn('id',$exam)->where('school_year',$s_year)->get();
+        $niz=array();
+        $niz2=array();
+        $dot=array();
+        for($i=0;count($index)>$i;$i++)
+        {    
+            $sifra=$index[$i]->id;
+            $smer=$index[$i]->sectors;
+            $dot[$sifra]=$smer;
+        }
+        // return dd($index);
+        foreach($dot as $key=>$value)
+        {
+            $p=explode(",",$value);
+            if($extract==$value)
+            {
+                array_push($niz,$key);
+            }
+            elseif(in_array($extract,$p))
+            {
+                array_push($niz,$key); 
+            }
+        } 
+        //return dd($niz);
+        $index=array();
+            for($i=0;count($niz)>$i;$i++)
+            {
+                $index[]=Subject::where('id',$niz[$i])->first();
+            }
+            
+        $index=array_values($index);
+        //return dd($niz);
+        return view('links.biranje_p',compact('index'));
     }
+    
     public function indexPreview(){
 
         $em = Auth::user()->email;
         $stud = Student::where('email',$em)->value('student_id');
-        $exam = Exam::where('code_stud',$stud)->pluck('code_subject');
-        $index=Subject::whereIn('id',$exam)->get();                
+        $index= Exam::with('subject','activities')->where('code_stud',$stud)->get();
         return view('links.moji_predmeti',compact('index'));
     
     }
@@ -50,11 +87,13 @@ class SubjectsController extends Controller
             'skolska_godina'=>'required',
             'tip_prijave'=>'required',
             'semestar'=>'required',
-            'espb'=>'required',
+            'espb'=>'required|integer',
             'rok'=>'required',
             'profesor'=>'required',
-            'datum_polaganja'=>'required'
+            'datum_polaganja'=>'required|date',
+            'sector'=>'required'
     	]);
+    	
 
     	   $store=new Subject;
         $store->name=request('naziv');
@@ -63,9 +102,13 @@ class SubjectsController extends Controller
         $store->school_year=request('skolska_godina');
         $store->n_gr=request('ngr');
        	$store->term=request('semestar');
-       	$store->test_1=request('test1');
-       	$store->test_2=request('test2');
-       	$store->test_3=request('test3');
+       	$store->sectors=implode(",",request('sector'));
+       	$store->test_max_1=request('testmax1');
+       	$store->test_max_2=request('testmax2');
+       	$store->test_max_3=request('testmax3');
+       	$store->test_min_1=request('testmin1');
+       	$store->test_min_2=request('testmin2');
+       	$store->test_min_3=request('testmin3');
        	$store->term_paper_1=request('term_paper_1');
        	$store->term_paper_2=request('term_paper_2');
        	$store->exam=request('exam');
@@ -78,14 +121,23 @@ class SubjectsController extends Controller
         return redirect()->back()->with('success', 'Kreiran je nov predmet!'); 
     }
     public function SearchSubject(){
-        $q = Input::get ( 'q' );
+        /*$q = Input::get ( 'q' );
         $subject = Subject::where('name','LIKE','%'.$q.'%')->get();
         
          if(count($subject) > 0 && $q!="")
             return view('admin.search_subjects_database')->withDetails($subject)->withQuery ( $q );
         else
-         return view ('admin.search_subjects_database');
+         return view ('admin.search_subjects_database');*/
+         
     }
+    
+    public function ShowAll()
+    {
+        $subject=new Subject;
+        $subject=$subject->paginate(10);
+        return view('admin.search_subjects_database',compact('subject'));
+    }
+    
     public function update(Request $request,$id){
 
         $this->validate($request,[
@@ -95,9 +147,12 @@ class SubjectsController extends Controller
             'n_tipp'=>'required',
             'n_sg'=>'required',
             'n_sem'=>'required',
-            'n_t1'=>'required',
-            'n_t2'=>'required',
-            'n_t3'=>'required',
+            'n_max_t1'=>'required',
+            'n_max_t2'=>'required',
+            'n_max_t3'=>'required',
+            'n_min_t1'=>'required',
+            'n_min_t2'=>'required',
+            'n_min_t3'=>'required',
             'n_s1'=>'required',
             'n_s2'=>'required',
             'n_ispit'=>'required',
@@ -113,9 +168,12 @@ class SubjectsController extends Controller
         $update->type_of_application=request('n_tipp');
         $update->school_year=request('n_sg');
        	$update->term=request('n_sem');
-       	$update->test_1=request('n_t1');
-       	$update->test_2=request('n_t2');
-       	$update->test_3=request('n_t3');
+       	$update->test_max_1=request('n_max_t1');
+       	$update->test_max_2=request('n_max_t2');
+       	$update->test_max_3=request('n_max_t3');
+       	$update->test_min_1=request('n_min_t1');
+       	$update->test_min_2=request('n_min_t2');
+       	$update->test_min_3=request('n_min_t3');
        	$update->term_paper_1=request('n_s1');
        	$update->term_paper_2=request('n_s2');
        	$update->exam=request('n_ispit');

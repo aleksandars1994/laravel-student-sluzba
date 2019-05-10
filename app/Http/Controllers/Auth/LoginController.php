@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\Request;
+
 
 
 class LoginController extends Controller
@@ -26,7 +28,10 @@ class LoginController extends Controller
      * Where to redirect users after login.
      *
      * @var string
+     * 
      */
+    
+     
     protected $redirectTo = '/home';
 
     /**
@@ -38,7 +43,13 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
-
-
+    //
+    protected function authenticated($request, $user)
+{
+    if($user->admin==="admin") {
+        return redirect()->intended('/admin');
+    }
+    return redirect()->intended('/home');
+}
    
 }

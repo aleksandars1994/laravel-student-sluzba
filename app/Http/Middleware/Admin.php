@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\Request;
 
 class Admin
 {
@@ -17,7 +18,8 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->isRole()=="admin") {
+        if (Auth::check() && Auth::user()->admin/*->isRole()*/=="admin") {
+            
             return $next($request);
         }
 
