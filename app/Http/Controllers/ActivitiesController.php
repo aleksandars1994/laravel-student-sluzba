@@ -101,7 +101,8 @@ class ActivitiesController extends Controller
     public function showSubjectName(){
 
         $subject= new Subject;
-        $subject=$subject::all();
+        $subject=$subject::pluck('name');
+        $subject=$subject->unique()->values()->all();
         return view('admin.update_students_activities')->with('subject',$subject);
         
     }
@@ -110,15 +111,16 @@ class ActivitiesController extends Controller
 
         $this->validate($request,[
             'stud'=>'required',
-            'pred'=>'required|numeric|min:0|max:50',
-            'kol1'=>'required|numeric|min:0|max:50',
-            'ispit'=>'required|numeric|min:0|max:50'
+            'prvi-deo'=>'required|numeric',
+            'drugi deo'=>'required|numeric',
+            'pred'=>'required'
         ]);
 
-        $stud=request('stud');
+        $stud=request('stud')."".request('prvi-deo')."/".request("drugi-deo");
         $pred=request('pred');
 
-        $update=Exam::where('code_stud',$stud)->where('code_subject',$pred)->value('code_act');
+        $subject=Subject::where('name',$pred)->pluck('id');
+        $update=Exam::where('code_stud',$stud)->whereIn('code_subject',$subject)->value('code_act');
         $store=Activities::find($update);
         $store->test_1=request('kol1');
         $store->test_2=request('kol2');
@@ -150,7 +152,7 @@ class ActivitiesController extends Controller
         $exam=Exam::where('code_stud',$stud)->where('code_subject',$pred)->update(array('points' => $points,'grade'=>$grade));
 
         return redirect()->back()->with('success','Azurirane su aktivnosti studenta '.$stud);
-
+        
     }
 
     /**

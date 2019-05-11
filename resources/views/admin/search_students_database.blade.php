@@ -21,7 +21,7 @@
                                 <option value="VD">VD</option>
                             </select>
                             <label> Skolska godina: </label>
-                            <input type="text" name="prvi-deo" size="4" maxlength="4">/
+                            <input type="text" name="prvi-deo" size="4" maxlength="4"> /
                             <input type="text" name="drugi-deo" size="4" maxlength="4">
                             <input type="Submit" value="Idi"><br>
                         </form>

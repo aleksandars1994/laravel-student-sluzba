@@ -26,14 +26,25 @@
 
                         {{csrf_field()}}
                         <label>Student</label>
-                        <input type="text" name="stud" value="{{old('stud')}}"/>
+                        <select name="stud">
+                            <option value="IT">IT</option>
+                            <option value="EP">EP</option>
+                            <option value="MM">MM</option>
+                            <option value="ZP">ZP</option>
+                            <option value="CZ">CZ</option>
+                            <option value="EE">EE</option>
+                            <option value="MS">MS</option>
+                            <option value="GI">GI</option>
+                            <option value="VD">VD</option>
+                        </select>
+                        <input name="prvi-deo" type="text" maxlength="3" size="3">/
+                        <input name="drugi-deo" type="text" maxlength="2" size="2">
 
                         <label>Predmet</label>
-                       <label>Predmet</label>
                         <select name='pred'>
                         @if(count($subject)>0)
-                        @foreach($subject as $name)
-                            <option value="{{$name->id}}">{{$name->name}}</option>
+                        @foreach($subject as $name=>$key)
+                            <option value="{{$key}}">{{$key}}</option>
                         @endforeach
                         </select>
                         @else
